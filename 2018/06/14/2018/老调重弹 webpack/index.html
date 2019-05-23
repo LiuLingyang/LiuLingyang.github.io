@@ -1,0 +1,771 @@
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="zh-Hans">
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=5.1.0" rel="stylesheet" type="text/css">
+
+
+  <meta name="keywords" content="Hexo, NexT">
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.1.0">
+
+
+
+
+
+
+<meta name="description" content="前言本来是准备只总结下热更新的，但发现webpack4升级后还是有不少改动，索性放在一起总结一下。按照惯例，先上链接：https://github.com/LiuLingyang/framework。（注：该脚手架基于 webpack4 ） 多入口多出口在大家熟知的脚手架中，大部分可能都是单页面应用，即单入口单出口。当你的网站足够简单，SPA确实提高了用户体验。但对于企业级应用而言，SPA极易造成">
+<meta property="og:type" content="article">
+<meta property="og:title" content="老调重弹 webpack">
+<meta property="og:url" content="http://yoursite.com/2018/06/14/2018/老调重弹 webpack/index.html">
+<meta property="og:site_name" content="知识即性感">
+<meta property="og:description" content="前言本来是准备只总结下热更新的，但发现webpack4升级后还是有不少改动，索性放在一起总结一下。按照惯例，先上链接：https://github.com/LiuLingyang/framework。（注：该脚手架基于 webpack4 ） 多入口多出口在大家熟知的脚手架中，大部分可能都是单页面应用，即单入口单出口。当你的网站足够简单，SPA确实提高了用户体验。但对于企业级应用而言，SPA极易造成">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/13276697-10a11c392da5f96e?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/13276697-2094665814acff8f?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/13276697-4c1d7d5b3726a079?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/13276697-205f22821d59a879?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/13276697-685718606099b7ba?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/13276697-387aa53641c0c109?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/13276697-dcf1a45bf94c1db9?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/13276697-1e035f357e5263bf?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/13276697-8175752ec6f67443?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/13276697-1dd57addaef0f156?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/13276697-7ea145c9d4e00bbd?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:updated_time" content="2019-05-23T08:09:49.080Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="老调重弹 webpack">
+<meta name="twitter:description" content="前言本来是准备只总结下热更新的，但发现webpack4升级后还是有不少改动，索性放在一起总结一下。按照惯例，先上链接：https://github.com/LiuLingyang/framework。（注：该脚手架基于 webpack4 ） 多入口多出口在大家熟知的脚手架中，大部分可能都是单页面应用，即单入口单出口。当你的网站足够简单，SPA确实提高了用户体验。但对于企业级应用而言，SPA极易造成">
+<meta name="twitter:image" content="http://upload-images.jianshu.io/upload_images/13276697-10a11c392da5f96e?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    sidebar: {"position":"left","display":"post","offset":12,"offset_float":0,"b2t":false,"scrollpercent":false},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2018/06/14/2018/老调重弹 webpack/">
+
+
+
+
+
+  <title> 老调重弹 webpack | 知识即性感 </title>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">知识即性感</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br>
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>
+            
+            归档
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/06/14/2018/老调重弹 webpack/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="LiuLingyang">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="知识即性感">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                老调重弹 webpack
+              
+            
+          </h1>
+        
+
+        
+        <div class="post-author"><i class="fa fa-user-o"></i>&nbsp;&nbsp;LiuLingyang</div>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-06-14T00:00:00+08:00">
+                2018-06-14
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Webpack/" itemprop="url" rel="index">
+                    <span itemprop="name">Webpack</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+            <!--noindex-->
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2018/06/14/2018/老调重弹 webpack/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count hc-comment-count" data-xid="2018/06/14/2018/老调重弹 webpack/" itemprop="commentsCount"></span>
+                </a>
+              </span>
+              <!--/noindex-->
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><p>本来是准备只总结下热更新的，但发现webpack4升级后还是有不少改动，索性放在一起总结一下。<br>按照惯例，先上链接：<a href="https://github.com/LiuLingyang/framework" target="_blank" rel="noopener">https://github.com/LiuLingyang/framework</a>。（注：该脚手架基于 webpack4 ）</p>
+<h1 id="多入口多出口"><a href="#多入口多出口" class="headerlink" title="多入口多出口"></a>多入口多出口</h1><p>在大家熟知的脚手架中，大部分可能都是单页面应用，即单入口单出口。当你的网站足够简单，SPA确实提高了用户体验。但对于企业级应用而言，SPA极易造成单个页面体积过大，它可能加载了很多其他页面的资源。SPA的另一个问题就是不利于SEO。针对这些问题，多页面 + 局部SPA 成为了最优的选择。</p>
+<p>多页面大多数情况有多个html模板文件，并且要求引入各自的JS文件配置，即多入口多出口。如何生成多个页面？只要以链式的方法，调用html-webpack-plugin插件，每次调用都要指定filename也就是生成页面的名字。调用一次生成一个页面，调用两次生成两个页面,以此类推。</p>
+<p>如何引入各自的JS文件配置？比如说我们希望index.html引入的是index.js，test.html引入的是test.js如何操作呢？<br>我们需要在html-webpack-plugin中再配置一个参数，chunks，支持数组，数组里面填写的是引入的js，也就是entry里面配置的key，要引入哪个js就配置entry中的哪个key。</p>
+<p> <img src="http://upload-images.jianshu.io/upload_images/13276697-10a11c392da5f96e?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="Alt pic"></p>
+<h1 id="开发环境？生产环境？"><a href="#开发环境？生产环境？" class="headerlink" title="开发环境？生产环境？"></a>开发环境？生产环境？</h1><p>ebpack4中提供了更加快捷的mode模式来区分开发环境和生产环境。mode有两个值：development和production，默认值是 production。mode是我们为减小生产环境构建体积以及节约开发环境的构建时间提供的一种优化方案，提供对应的构建参数项的默认开启或关闭，降低配置成本。</p>
+<p> <img src="http://upload-images.jianshu.io/upload_images/13276697-2094665814acff8f?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="Alt pic"><br> <img src="http://upload-images.jianshu.io/upload_images/13276697-4c1d7d5b3726a079?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="Alt pic"></p>
+<p>development模式下，将侧重于功能调试和优化开发体验。<br>production模式下，将侧重于模块体积优化和线上部署。注意：这里不再需要配置UglifyJSPlugin插件，而是会自动启用uglifyjs对代码进行压缩。</p>
+<h1 id="webpack4其他改动"><a href="#webpack4其他改动" class="headerlink" title="webpack4其他改动"></a>webpack4其他改动</h1><p>webpack4官方移除了commonchunk插件，改用了optimization属性进行更加灵活的配置，这也应该是从V3升级到V4的代码修改过程中最为复杂的一部分。</p>
+<p>由于webpack4以后对css模块支持的逐步完善和commonchunk插件的移除，在处理css文件提取的计算方式上也做了些调整，之前我们首选使用的extract-text-webpack-plugin也完成了其历史使命，将让位于mini-css-extract-plugin。</p>
+<p>剩下的问题大部分都是因为当前的包与webpack4不兼容。解决办法：升级呗。</p>
+<p>这里就不贴出详细代码了，看源码吧。</p>
+<h1 id="模块热替换-Hot-Module-Replacement"><a href="#模块热替换-Hot-Module-Replacement" class="headerlink" title="模块热替换(Hot Module Replacement)"></a>模块热替换(Hot Module Replacement)</h1><p>HMR是webpack最令人兴奋的特性之一，当你对代码进行修改并保存后，webpack将对代码重新打包，并将新的模块发送到浏览器端，浏览器通过新的模块替换老的模块，这样在不刷新浏览器的前提下就能够对应用进行更新。HMR是一个非常值得去深入研究的东西，它绝不是目前我们看到的大多数技术文章说的配置一个hot参数这么简单，有兴趣的小伙伴可以去看看它的实现原理，目前为止我也只看过一点点。</p>
+<p>实现模块热替换的方式有两种，一种是采用中间件的方式，webpack-dev-middleware和webpack-hot-middleware配合使用，实现热替换功能；另外一种是使用webpack-dev-server插件，配置一些必要的参数，也可以实现热替换功能。需要注意的是两种方式都只用于开发环境。打包后的文件都是放到内存中的，所以我们在项目中是看不到它打包以后生成的文件的。本例采用第二种方式实现。</p>
+<p>两种方式都需要配置的项我就放在最前面说好了：</p>
+<ol>
+<li><p>webpack的plugins添加webpack.HotModuleReplacementPlugin()，这是一个必要的热替换插件。你可能在某些地方可能会看到webpack-dev-server添加了hot: true以后，它会自动帮我们加这个插件。相信我，还是会报错的，所以还是老老实实的手动添加到plugins里面吧。</p>
+</li>
+<li><p>我们通过 HotModuleReplacementPlugin 启用了模块热替换，则它的接口将被暴露在module.hot属性下面。我们需要把整个项目的要被webpack编译的文件都设置为接受热更新，而最简单的方式就是在入口文件的地方添加：<br><img src="http://upload-images.jianshu.io/upload_images/13276697-205f22821d59a879?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="Alt pic"></p>
+</li>
+</ol>
+<h2 id="中间件"><a href="#中间件" class="headerlink" title="中间件"></a>中间件</h2><p>中间件的方式配置起来还是比较简单的。</p>
+<p> <img src="http://upload-images.jianshu.io/upload_images/13276697-685718606099b7ba?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="Alt pic"></p>
+<p>就这几行核心代码，我就直接贴出来了。</p>
+<p>中间件是可以和自己的后端服务整合的，相对与webpack-dev-server，它拥有更好的灵活性和自由度。</p>
+<p>Koa实现热更新的中间件似乎还没有包可以直接引，但大神们早已为我们铺好了路。Kao架构可以参考：<a href="https://www.cnblogs.com/liuyt/p/7217024.html" target="_blank" rel="noopener">https://www.cnblogs.com/liuyt/p/7217024.html</a></p>
+<h2 id="webpack-dev-server"><a href="#webpack-dev-server" class="headerlink" title="webpack-dev-server"></a>webpack-dev-server</h2><p>webpack-dev-server实际上相当于启用了一个express的Http服务器+调用webpack-dev-middleware。它的作用主要是用来伺服资源文件。这个Http服务器和client使用了websocket通讯协议，原始文件作出改动后，webpack-dev-server会用webpack实时的编译，再用webpack-dev-middleware将webpack编译后文件输出到内存中。</p>
+<p>webpack-dev-server支持两种配置方式（iframe mode &amp;&amp; inline mode）。</p>
+<p>iframe模式不需要配置任何东西，只需要在你启动的项目的端口号后面加上/webpack-dev-server/即可，比如：<a href="http://localhost:8080/webpack-dev-server/。" target="_blank" rel="noopener">http://localhost:8080/webpack-dev-server/。</a><br>它的原理是在页面中嵌入了一个iframe标签来实现热更新。因为这种模式配置比较简单，这里就不展开介绍这种模式了。有兴趣的小伙伴可以自行研究。</p>
+<p>inline模式不需要改变url，但配置起来比iframe模式繁琐的多。</p>
+<p>inline模式又分两种方式启动，Node方式和非Node方式。</p>
+<p>#非Node方式<br>非Node方式有关webpack-dev-server的配置都在webpack.config.js的devServer参数里。一定要指定output.publicPath，如果不指定会导致HMR无法工作。</p>
+<p> <img src="http://upload-images.jianshu.io/upload_images/13276697-387aa53641c0c109?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="Alt pic"></p>
+<p>contentBase就和output.path是一样的作用，如果不配置这个参数就会打包到项目的根路径下。这里再强调一下为了加快打包进程打包后的文件是放到内存中的，所以我们是看不到实际文件的。</p>
+<p>hot:true&amp;&amp;inline:true就是开启inline模式和热更新，没什么好说的。</p>
+<p>proxy：当您有一个单独的后端开发服务器，并且想要在同一个域上发送API请求时，则代理这些url。设置代理后contentBase需要修改为绝对路径。本例中将被修改为<a href="http://localhost:3001/。" target="_blank" rel="noopener">http://localhost:3001/。</a></p>
+<p>命令行启动：webpack-dev-server –hot –inline。</p>
+<h2 id="Node方式"><a href="#Node方式" class="headerlink" title="Node方式"></a>Node方式</h2><p>如果使用Node.js方式，那么即使你配置了devServer也会被忽略，真正起作用的应该是Node.js的dev.js文件，这个文件放在build目录下面。<br>此时启动项目：node build/dev.js。</p>
+<p>build/dev.js<br> <img src="http://upload-images.jianshu.io/upload_images/13276697-dcf1a45bf94c1db9?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="Alt pic"></p>
+<p>当然这还不够，还需要在entry属性里添加webpack-dev-server/client?http://«path»:«port»/ 和 webpack/hot/dev-server。<br> <img src="http://upload-images.jianshu.io/upload_images/13276697-1e035f357e5263bf?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="Alt pic"></p>
+<p>好的，选择一个你喜欢的方式启动起来吧，如果能在控制台看到以下的信息，代表热更新已经成功启动了。<br> <img src="http://upload-images.jianshu.io/upload_images/13276697-8175752ec6f67443?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="Alt pic"></p>
+<h2 id="react-hot-loader"><a href="#react-hot-loader" class="headerlink" title="react-hot-loader"></a>react-hot-loader</h2><p>你可以已经注意到了，在entry属性中我还添加了react-hot-loader/patch。</p>
+<p>webpack-dev-server的热更新对于保存react状态是无法做到的，所以才有了react-hot-loader这个东西，这个不是必须配置的插件。<br>不过如果你想要更新时可以保存state，这是必须的。</p>
+<p>配置分三步走：</p>
+<p>1..babelrc中添加react-hot-loader/babel：<br> <img src="http://upload-images.jianshu.io/upload_images/13276697-1dd57addaef0f156?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="Alt pic"></p>
+<p>2.entry参数添加react-hot-loader/patch；</p>
+<p>3.修改跟组件接收热更新：<br> <img src="http://upload-images.jianshu.io/upload_images/13276697-7ea145c9d4e00bbd?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="Alt pic"></p>
+<p>经过一顿神操作后，相信你已经弄清楚了热更新到底是怎么回事。如果你的项目还没有开始应用，抓紧尝试下吧。</p>
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+        
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2018/01/11/2018/Vuex 实践/" rel="next" title="Vuex 实践">
+                <i class="fa fa-chevron-left"></i> Vuex 实践
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2018/09/26/2018/你可能需要 Redux/" rel="prev" title="你可能需要 Redux">
+                你可能需要 Redux <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+      <div id="hypercomments_widget"></div>
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image" src="/images/avatar.gif" alt="LiuLingyang">
+          <p class="site-author-name" itemprop="name">LiuLingyang</p>
+           
+              <p class="site-description motion-element" itemprop="description"></p>
+          
+        </div>
+        <nav class="site-state motion-element">
+
+          
+            <div class="site-state-item site-state-posts">
+              <a href="/archives">
+                <span class="site-state-item-count">6</span>
+                <span class="site-state-item-name">日志</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-categories">
+              
+                <span class="site-state-item-count">4</span>
+                <span class="site-state-item-name">分类</span>
+              
+            </div>
+          
+
+          
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+        </div>
+
+        
+        
+
+        
+        
+
+        
+
+
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#前言"><span class="nav-number">1.</span> <span class="nav-text">前言</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#多入口多出口"><span class="nav-number">2.</span> <span class="nav-text">多入口多出口</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#开发环境？生产环境？"><span class="nav-number">3.</span> <span class="nav-text">开发环境？生产环境？</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#webpack4其他改动"><span class="nav-number">4.</span> <span class="nav-text">webpack4其他改动</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#模块热替换-Hot-Module-Replacement"><span class="nav-number">5.</span> <span class="nav-text">模块热替换(Hot Module Replacement)</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#中间件"><span class="nav-number">5.1.</span> <span class="nav-text">中间件</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#webpack-dev-server"><span class="nav-number">5.2.</span> <span class="nav-text">webpack-dev-server</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Node方式"><span class="nav-number">5.3.</span> <span class="nav-text">Node方式</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#react-hot-loader"><span class="nav-number">5.4.</span> <span class="nav-text">react-hot-loader</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2019</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">LiuLingyang</span>
+</div>
+
+
+<div class="powered-by">
+  由 <a class="theme-link" href="https://hexo.io">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Pisces
+  </a>
+</div>
+
+
+        
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.0"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.0"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.0"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.0"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.0"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.0"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.0"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+		<script type="text/javascript">
+		_hcwp = window._hcwp || [];
+
+		_hcwp.push({widget:"Bloggerstream", widget_id: 95658, selector:".hc-comment-count", label: "{\%COUNT%\}" });
+
+		
+		_hcwp.push({widget:"Stream", widget_id: 95658, xid: "2018/06/14/2018/老调重弹 webpack/"});
+		
+
+		(function() {
+		if("HC_LOAD_INIT" in window)return;
+		HC_LOAD_INIT = true;
+		var lang = (navigator.language || navigator.systemLanguage || navigator.userLanguage || "en").substr(0, 2).toLowerCase();
+		var hcc = document.createElement("script"); hcc.type = "text/javascript"; hcc.async = true;
+		hcc.src = ("https:" == document.location.protocol ? "https" : "http")+"://w.hypercomments.com/widget/hc/95658/"+lang+"/widget.js";
+		var s = document.getElementsByTagName("script")[0];
+		s.parentNode.insertBefore(hcc, s.nextSibling);
+		})();
+		</script>
+
+	
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

@@ -1,0 +1,796 @@
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="zh-Hans">
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=5.1.0" rel="stylesheet" type="text/css">
+
+
+  <meta name="keywords" content="Hexo, NexT">
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.1.0">
+
+
+
+
+
+
+<meta name="description" content="前言公司社区上关于Vue的文章挺少的（少的可怜），不禁为Vue愤愤不平，此文应运而生。 但笔者水平有限，也写不了什么特别高深的东西，只能简单介绍下Vue生态圈，如有不对之处，还望指正。 Vue.jsVue.js是一款极简的 mvvm 框架，如果让我用一个词来形容它，就是“轻巧”。如果用一句话来描述它，它能够集众多优秀逐流的前端框架之大成，但同时保持简单易用。为什么这么说，因为Vue.js通过简洁的">
+<meta property="og:type" content="article">
+<meta property="og:title" content="vue 生态圈">
+<meta property="og:url" content="http://yoursite.com/2017/09/02/2017/vue 生态圈/index.html">
+<meta property="og:site_name" content="知识即性感">
+<meta property="og:description" content="前言公司社区上关于Vue的文章挺少的（少的可怜），不禁为Vue愤愤不平，此文应运而生。 但笔者水平有限，也写不了什么特别高深的东西，只能简单介绍下Vue生态圈，如有不对之处，还望指正。 Vue.jsVue.js是一款极简的 mvvm 框架，如果让我用一个词来形容它，就是“轻巧”。如果用一句话来描述它，它能够集众多优秀逐流的前端框架之大成，但同时保持简单易用。为什么这么说，因为Vue.js通过简洁的">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/13276697-dc8081d4ab35469b?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/13276697-69008de1aea50cab?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/13276697-377be978a9d309c4?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/13276697-319302c2973f3f2f?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/13276697-40879b0df04378e0?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:updated_time" content="2019-05-23T08:16:24.639Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="vue 生态圈">
+<meta name="twitter:description" content="前言公司社区上关于Vue的文章挺少的（少的可怜），不禁为Vue愤愤不平，此文应运而生。 但笔者水平有限，也写不了什么特别高深的东西，只能简单介绍下Vue生态圈，如有不对之处，还望指正。 Vue.jsVue.js是一款极简的 mvvm 框架，如果让我用一个词来形容它，就是“轻巧”。如果用一句话来描述它，它能够集众多优秀逐流的前端框架之大成，但同时保持简单易用。为什么这么说，因为Vue.js通过简洁的">
+<meta name="twitter:image" content="http://upload-images.jianshu.io/upload_images/13276697-dc8081d4ab35469b?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    sidebar: {"position":"left","display":"post","offset":12,"offset_float":0,"b2t":false,"scrollpercent":false},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2017/09/02/2017/vue 生态圈/">
+
+
+
+
+
+  <title> vue 生态圈 | 知识即性感 </title>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">知识即性感</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br>
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>
+            
+            归档
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/09/02/2017/vue 生态圈/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="LiuLingyang">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="知识即性感">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                vue 生态圈
+              
+            
+          </h1>
+        
+
+        
+        <div class="post-author"><i class="fa fa-user-o"></i>&nbsp;&nbsp;LiuLingyang</div>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-09-02T00:00:00+08:00">
+                2017-09-02
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Vue/" itemprop="url" rel="index">
+                    <span itemprop="name">Vue</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+            <!--noindex-->
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2017/09/02/2017/vue 生态圈/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count hc-comment-count" data-xid="2017/09/02/2017/vue 生态圈/" itemprop="commentsCount"></span>
+                </a>
+              </span>
+              <!--/noindex-->
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>公司社区上关于Vue的文章挺少的（少的可怜），不禁为Vue愤愤不平，此文应运而生。</p>
+<p>但笔者水平有限，也写不了什么特别高深的东西，只能简单介绍下Vue生态圈，如有不对之处，还望指正。</p>
+<h2 id="Vue-js"><a href="#Vue-js" class="headerlink" title="Vue.js"></a>Vue.js</h2><p>Vue.js是一款极简的 mvvm 框架，如果让我用一个词来形容它，就是“轻巧”。如果用一句话来描述它，它能够集众多优秀逐流的前端框架之大成，但同时保持简单易用。为什么这么说，因为Vue.js通过简洁的API提供高效的数据绑定和灵活的组件系统。在前端纷繁复杂的生态中，Vue.js却一直受到一定程度的关注，而其本身也在高速发展中，不论是生态、社区、资源、插件等等都在日趋壮大。如果您还未曾了解Vue.js的话，建议您阅读<a href="http://cn.vuejs.org/v2/guide/" target="_blank" rel="noopener">http://cn.vuejs.org/v2/guide/</a>，这里有Vue.js正确的食用方法。如果您想在此文中知晓Vue.js核心的话，可能要让您失望了。本文不会介绍Vue.js的语法，模板、组件、API等等，这是一篇介绍Vue.js周边或者说Vue.js生态的文章（当然这要求你对Vue.js有一定程度的了解）。</p>
+<h2 id="Vuex"><a href="#Vuex" class="headerlink" title="Vuex"></a>Vuex</h2><p>如果说整个生态圈里vue.js作为核心，坐实了老大地位的话，我会把Vuex放在老二的位置。学过React的人都知道Redux的重要性，而Vuex之于Vue就像Redux之于React。</p>
+<p>Vuex 是一个专为 Vue.js 应用程序开发的状态管理模式。灵感来自Flux和Redux,但简化的概念和实现是一个专门为<code>Vue.js</code>应用设计的状态管理架构。如果您的应用程序足够简单，建议您不要使用Vuex。但是，如果您需要构建是一个中大型单页应用，您很可能会考虑如何更好地在组件外部管理状态，Vuex 将会成为自然而然的选择。</p>
+<p>言归正传，什么是状态管理模式？讲讲我自己的理解吧。当你在开发应用程序时，你一定会分解出很多组件进行开发，而各个组件之间想必在逻辑上多少是有关系的。那么组件之间的“通信”，就成了待解决问题。以前我们试图用事件广播来做，但随之而来的问题是，在应用不断的扩展、变化中，事件变得越来越复杂，越来越不可预料，以至于越来越难调试，越来越难追踪错误。这当然不是我们想要的，我们希望应用的各个部分都易维护、可扩展、好调试、能预测。于是，状态管理模式冒了出来。</p>
+<p><img src="http://upload-images.jianshu.io/upload_images/13276697-dc8081d4ab35469b?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="image"></p>
+<p>几个重要的概念：</p>
+<ul>
+<li>state：驱动应用的数据源；</li>
+<li>actions：响应在用户操作行为导致的状态变化；</li>
+<li>mutations：引发状态改变的所有方法的集合；</li>
+<li>store对象：store对象是Vuex.Store的实例。在store内有分为state对象和mutations对象。</li>
+</ul>
+<p>简单点说，本来需要共享状态的更新是需要组件之间通讯的，而现在有了Vuex，所有组件就都和store通讯了。问题就自然解决了。</p>
+<h2 id="vue-router"><a href="#vue-router" class="headerlink" title="vue-router"></a>vue-router</h2><p>都说Vue牛逼，那一定也有一套自己路由的实现，接下来让我们来看看vue-router。</p>
+<p>vue-router是Vue.js官方的路由插件，它和vue.js是深度集成的，适合用于构建单页面应用。vue的单页面应用是基于路由和组件的，路由用于设定访问路径，并将路径和组件映射起来。传统的页面应用，是用一些超链接来实现页面切换和跳转的。在vue-router单页面应用中，则是路径之间的切换，也就是组件的切换。</p>
+<p>vue-router的用法也是异常简单：</p>
+<p><strong>HTML</strong></p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">id</span>=<span class="string">"app"</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">h1</span>&gt;</span>Hello App!<span class="tag">&lt;/<span class="name">h1</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">p</span>&gt;</span></span><br><span class="line">    <span class="comment">&lt;!-- 使用 router-link 组件来导航. --&gt;</span></span><br><span class="line">    <span class="comment">&lt;!-- 通过传入`to`属性指定链接. --&gt;</span></span><br><span class="line">    <span class="comment">&lt;!-- &lt;router-link&gt; 默认会被渲染成一个`&lt;a&gt;`标签 --&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">router-link</span> <span class="attr">to</span>=<span class="string">"/foo"</span>&gt;</span>Go to Foo<span class="tag">&lt;/<span class="name">router-link</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">router-link</span> <span class="attr">to</span>=<span class="string">"/bar"</span>&gt;</span>Go to Bar<span class="tag">&lt;/<span class="name">router-link</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;/<span class="name">p</span>&gt;</span></span><br><span class="line">  <span class="comment">&lt;!-- 路由出口 --&gt;</span></span><br><span class="line">  <span class="comment">&lt;!-- 路由匹配到的组件将渲染在这里 --&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">router-view</span>&gt;</span><span class="tag">&lt;/<span class="name">router-view</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<p><strong>JS</strong></p>
+<pre data-type="javascript">
+0. 如果使用模块化机制编程，導入Vue和VueRouter，要调用 Vue.use(VueRouter)
+
+1. 定义（路由）组件
+// 可以从其他文件 import 进来
+const Foo = { template: 'foo' }
+const Bar = { template: 'bar' }
+
+2. 定义路由
+// 每个路由应该映射一个组件。 其中"component" 可以是通过 Vue.extend() 创建的组件构造器，或者，只是一个组件配置对象。
+const routes = [
+  { path: '/foo', component: Foo },
+  { path: '/bar', component: Bar }
+]
+
+3. 创建 router 实例，然后传 `routes` 配置
+const router = new VueRouter({
+  routes // （缩写）相当于 routes: routes
+})
+
+4. 创建和挂载根实例
+// 记得要通过 router 配置参数注入路由，从而让整个应用都有路由功能
+const app = new Vue({
+  router
+}).$mount('#app')
+</pre>
+
+<p>现在，你已经完成了整个应用的路由配置，到浏览器上看看效果吧！</p>
+<h2 id="vue-devtools"><a href="#vue-devtools" class="headerlink" title="vue-devtools"></a>vue-devtools</h2><p>vue-devtools是基于google chrome浏览器的一款调试vue.js应用的开发者浏览器扩展。一张图看懂它是什么：</p>
+<p><img src="http://upload-images.jianshu.io/upload_images/13276697-69008de1aea50cab?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="image"></p>
+<p>注意：初次安装好vue-devtools以后，需要关闭chrome devtool再开，才能看见vue的标签（通常在最后）。如果你正在使用我提供的例子，或者同样也是在浏览器访问自己本机写的html，需要在vue-devtools的设置里面勾选“允许访问文件URL”（如图）。</p>
+<p><img src="http://upload-images.jianshu.io/upload_images/13276697-377be978a9d309c4?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="image"></p>
+<h2 id="webpack"><a href="#webpack" class="headerlink" title="webpack"></a>webpack</h2><p>把webpack放在这里讲似乎不太合适，毕竟这并不是Vue独有的东西。而且webpack的大名说不定比Vue本身还响亮。看近期Github上各大主流的项目，无一例外都已经是基于webpack来开发。你可以不打算将其用在你的项目上，但没有理由不去掌握它。篇幅有限，不展开描述，一句话概括webpack的主要用途：把所有浏览器端需要发布的资源做相应的准备，完成资源的合并和打包。</p>
+<h2 id="vue-cli"><a href="#vue-cli" class="headerlink" title="vue-cli"></a>vue-cli</h2><p>作为Vue的脚手架，vue-cli无疑是出色的。它可以帮你快速的上手vue构建的工程，而无需再花多余的时间去熟悉vue工程的文件系统。</p>
+<p>使用它的方法也很简单：</p>
+<ol>
+<li>npm install -g vue-cli      //全局安装vue-cli</li>
+<li>vue init webpack projectName  //生成项目名为projectName的模板，这里的项目名projectName随你自己写</li>
+<li>cd projectName                              </li>
+<li>npm install             //初始化安装依赖</li>
+<li>npm run dev            //启动工程</li>
+</ol>
+<p>在浏览器打开<a href="http://localhost:8080，则可以看到欢迎页了：" target="_blank" rel="noopener">http://localhost:8080，则可以看到欢迎页了：</a></p>
+<p><img src="http://upload-images.jianshu.io/upload_images/13276697-319302c2973f3f2f?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="image"></p>
+<p>再回头看看项目结构，是不是一目了然:</p>
+<p><img src="http://upload-images.jianshu.io/upload_images/13276697-40879b0df04378e0?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="image"></p>
+<h2 id="iView"><a href="#iView" class="headerlink" title="iView"></a>iView</h2><p>其实这是Vue.js的一个ui库，我一直不明白为什么作者不直接把它叫做ivue或者vue-ui，似乎这样的名字才更明了吧，或许好名字都早已被人抢先注册了~</p>
+<p>言归正传，iView本身还是异常强大的，附iView官方文档：<a href="https://www.iviewui.com/" target="_blank" rel="noopener">https://www.iviewui.com/</a>。</p>
+<h2 id="React？"><a href="#React？" class="headerlink" title="React？"></a>React？</h2><p>what？React怎么成Vue生态圈里的东西了？别激动，这不是有个问号吗？其实我只是想讲讲和React的区别罢了，瞧把你激动的。</p>
+<p>相似：</p>
+<p>其实都是model driven思想的严格践行者，以及通过component拆分完整整个系统的分治。</p>
+<p>不同：</p>
+<p>1.react基本上已经有一套遵循Flux的完整开发方案（基本上也就这一套大家默认的方式），而vue虽然有配合vuex使用，但是还有其他很多组织方式来解决，所以并不算是有固定模式，相对灵活很多，当然这个你可以看作是优势，也可以看作是不足；</p>
+<p>2.react社区还是要比vue大很多；</p>
+<p>3.react在view层侵入性还是要比vue大很多的；</p>
+<p>4.首次渲染性能，对于大量数据来说react还是比vue有优势；</p>
+<p>5.对于component的写法，react偏向于all in js，语法学习上需要下一些功夫，而vue配合vue-loader，其实在很大程度上让你不会觉得陌生–这不就是web component么。</p>
+<p>是时候结束本文了，如果你对Vue依旧没有兴趣，不是你的锅，也不是Vue的锅，文章写的太烂，望海涵~</p>
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+        
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2017/06/16/2017/用户信息及设备信息采集器/" rel="next" title="用户信息及设备信息采集器">
+                <i class="fa fa-chevron-left"></i> 用户信息及设备信息采集器
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2018/01/11/2018/Vuex 实践/" rel="prev" title="Vuex 实践">
+                Vuex 实践 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+      <div id="hypercomments_widget"></div>
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image" src="/images/avatar.gif" alt="LiuLingyang">
+          <p class="site-author-name" itemprop="name">LiuLingyang</p>
+           
+              <p class="site-description motion-element" itemprop="description"></p>
+          
+        </div>
+        <nav class="site-state motion-element">
+
+          
+            <div class="site-state-item site-state-posts">
+              <a href="/archives">
+                <span class="site-state-item-count">6</span>
+                <span class="site-state-item-name">日志</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-categories">
+              
+                <span class="site-state-item-count">4</span>
+                <span class="site-state-item-name">分类</span>
+              
+            </div>
+          
+
+          
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+        </div>
+
+        
+        
+
+        
+        
+
+        
+
+
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#前言"><span class="nav-number">1.</span> <span class="nav-text">前言</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Vue-js"><span class="nav-number">2.</span> <span class="nav-text">Vue.js</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Vuex"><span class="nav-number">3.</span> <span class="nav-text">Vuex</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#vue-router"><span class="nav-number">4.</span> <span class="nav-text">vue-router</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#vue-devtools"><span class="nav-number">5.</span> <span class="nav-text">vue-devtools</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#webpack"><span class="nav-number">6.</span> <span class="nav-text">webpack</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#vue-cli"><span class="nav-number">7.</span> <span class="nav-text">vue-cli</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#iView"><span class="nav-number">8.</span> <span class="nav-text">iView</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#React？"><span class="nav-number">9.</span> <span class="nav-text">React？</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2019</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">LiuLingyang</span>
+</div>
+
+
+<div class="powered-by">
+  由 <a class="theme-link" href="https://hexo.io">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Pisces
+  </a>
+</div>
+
+
+        
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.0"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.0"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.0"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.0"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.0"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.0"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.0"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+		<script type="text/javascript">
+		_hcwp = window._hcwp || [];
+
+		_hcwp.push({widget:"Bloggerstream", widget_id: 95658, selector:".hc-comment-count", label: "{\%COUNT%\}" });
+
+		
+		_hcwp.push({widget:"Stream", widget_id: 95658, xid: "2017/09/02/2017/vue 生态圈/"});
+		
+
+		(function() {
+		if("HC_LOAD_INIT" in window)return;
+		HC_LOAD_INIT = true;
+		var lang = (navigator.language || navigator.systemLanguage || navigator.userLanguage || "en").substr(0, 2).toLowerCase();
+		var hcc = document.createElement("script"); hcc.type = "text/javascript"; hcc.async = true;
+		hcc.src = ("https:" == document.location.protocol ? "https" : "http")+"://w.hypercomments.com/widget/hc/95658/"+lang+"/widget.js";
+		var s = document.getElementsByTagName("script")[0];
+		s.parentNode.insertBefore(hcc, s.nextSibling);
+		})();
+		</script>
+
+	
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

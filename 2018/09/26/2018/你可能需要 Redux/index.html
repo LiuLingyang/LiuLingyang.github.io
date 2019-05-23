@@ -1,0 +1,731 @@
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="zh-Hans">
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=5.1.0" rel="stylesheet" type="text/css">
+
+
+  <meta name="keywords" content="Hexo, NexT">
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.1.0">
+
+
+
+
+
+
+<meta name="description" content="前言你可能并不需要Redux。有点啪啪打脸的意思，但你必须权衡Redux架构给你项目带来的短期和长期的效益来决定是否应该使用Redux。如果只是一个简单的应用，Redux只会带来繁琐冗余的代码体验，这真的得不偿失。如果打算开发大型单页应用，Redux将会成为自然而然的选择。引用 Redux 的作者 Dan Abramov 的话说就是：  Flux 架构就像眼镜：您自会知道什么时候需要它。  Why">
+<meta property="og:type" content="article">
+<meta property="og:title" content="你可能需要 Redux">
+<meta property="og:url" content="http://yoursite.com/2018/09/26/2018/你可能需要 Redux/index.html">
+<meta property="og:site_name" content="知识即性感">
+<meta property="og:description" content="前言你可能并不需要Redux。有点啪啪打脸的意思，但你必须权衡Redux架构给你项目带来的短期和长期的效益来决定是否应该使用Redux。如果只是一个简单的应用，Redux只会带来繁琐冗余的代码体验，这真的得不偿失。如果打算开发大型单页应用，Redux将会成为自然而然的选择。引用 Redux 的作者 Dan Abramov 的话说就是：  Flux 架构就像眼镜：您自会知道什么时候需要它。  Why">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="https://upload-images.jianshu.io/upload_images/13276697-c94158eb9114e4e3.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:updated_time" content="2019-05-23T08:21:04.282Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="你可能需要 Redux">
+<meta name="twitter:description" content="前言你可能并不需要Redux。有点啪啪打脸的意思，但你必须权衡Redux架构给你项目带来的短期和长期的效益来决定是否应该使用Redux。如果只是一个简单的应用，Redux只会带来繁琐冗余的代码体验，这真的得不偿失。如果打算开发大型单页应用，Redux将会成为自然而然的选择。引用 Redux 的作者 Dan Abramov 的话说就是：  Flux 架构就像眼镜：您自会知道什么时候需要它。  Why">
+<meta name="twitter:image" content="https://upload-images.jianshu.io/upload_images/13276697-c94158eb9114e4e3.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    sidebar: {"position":"left","display":"post","offset":12,"offset_float":0,"b2t":false,"scrollpercent":false},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2018/09/26/2018/你可能需要 Redux/">
+
+
+
+
+
+  <title> 你可能需要 Redux | 知识即性感 </title>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">知识即性感</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br>
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>
+            
+            归档
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/09/26/2018/你可能需要 Redux/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="LiuLingyang">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="知识即性感">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                你可能需要 Redux
+              
+            
+          </h1>
+        
+
+        
+        <div class="post-author"><i class="fa fa-user-o"></i>&nbsp;&nbsp;LiuLingyang</div>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-09-26T00:00:00+08:00">
+                2018-09-26
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Redux/" itemprop="url" rel="index">
+                    <span itemprop="name">Redux</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+            <!--noindex-->
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2018/09/26/2018/你可能需要 Redux/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count hc-comment-count" data-xid="2018/09/26/2018/你可能需要 Redux/" itemprop="commentsCount"></span>
+                </a>
+              </span>
+              <!--/noindex-->
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><p>你可能并不需要Redux。<br>有点啪啪打脸的意思，但你必须权衡Redux架构给你项目带来的短期和长期的效益来决定是否应该使用Redux。如果只是一个简单的应用，Redux只会带来繁琐冗余的代码体验，这真的得不偿失。如果打算开发大型单页应用，Redux将会成为自然而然的选择。引用 Redux 的作者 Dan Abramov 的话说就是：</p>
+<blockquote>
+<p>Flux 架构就像眼镜：您自会知道什么时候需要它。</p>
+</blockquote>
+<h1 id="Why-Redux"><a href="#Why-Redux" class="headerlink" title="Why Redux"></a>Why Redux</h1><p>当你在开发应用程序时，你一定会分解出很多组件进行开发，而各个组件之间想必在逻辑上多少是有关系的。那么组件之间的“通信”，就成了待解决问题。<br>通俗点说如果一个 model 的变化会引起另一个 model 变化，那么当 view 变化时，就可能引起对应 model 以及另一个 model 的变化，依次地，可能会引起另一个 view 的变化。直至你搞不清楚到底发生了什么。<br>以前我们试图用事件广播来避免这些连锁反应，但随之而来的问题是，在应用不断的扩展、变化中，广播事件也变得越来越复杂，越来越不可预料，以至于越来越难调试，越来越难追踪错误。<br>这当然不是我们想要的，我们希望应用的各个部分都易维护、可扩展、好调试、能预测。<br>于是Redux应运而生。</p>
+<h1 id="单向数据流"><a href="#单向数据流" class="headerlink" title="单向数据流"></a>单向数据流</h1><p><img src="https://upload-images.jianshu.io/upload_images/13276697-c94158eb9114e4e3.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt><br>单向数据流可以说是Redux的设计核心。上图是一个表示“单向数据流”理念的极简示意。单向数据流要求各组件间的数据走向永远是单向的，可预期的。你不能直接改变 store 中的状态。改变 store 中的状态的唯一途径就是显式地提交Actions。这样使得我们可以方便地跟踪每一个状态的变化，从而让我们能够更好地了解我们的应用。</p>
+<h1 id="Action"><a href="#Action" class="headerlink" title="Action"></a>Action</h1><p>Action是把数据从应用传到 store 的有效载荷。它是 store 数据的唯一来源。一般来说你会通过store.dispatch() 将 action 传到 store。你可以理解为这是一个修改数据的指令。<br>为什么要用Action？<br>store的数据操作封装在store内部，各组件禁止直接修改state数据，只能发布一个修改数据的意图通知store进行数据更新，这个意图就是Action。<br>按照约定，action 具有 type 字段来表示它的类型。type 可被定义为常量或者是从其它模块引入，最好使用字符串。除了 type 字段外，action 对象的结构完全取决于你。<br>为了使Action可复用，我们最好编写Action创建函数。</p>
+<h1 id="Reducer"><a href="#Reducer" class="headerlink" title="Reducer"></a>Reducer</h1><p>Redux中的数据处理部分，我们称之为Reducer。<br>Reducer 就是一个纯函数，接收旧的 state 和 action，返回新的 state。<br>纯函数定义：相同的输入一定会对应相同的输出。翻译过来就是只要传入Action相同，返回计算得到的下一个 state 就一定相同。没有特殊情况、没有副作用，没有 API 请求、没有变量修改，单纯执行计算。<br>特别注意：不要修改 state。可以使用 Object.assign() 新建了一个副本或者借助Immutable.js。<br>Reducer过大时可以拆分Reducer。让每个 reducer 只负责管理全局 state 中它负责的一部分。每个 reducer 的 state 参数都不同，分别对应它管理的那部分 state 数据。</p>
+<h1 id="store"><a href="#store" class="headerlink" title="store"></a>store</h1><p> Redux 应用只有一个单一的 store。当需要拆分数据处理逻辑时，你应该使用 reducer 组合，而不是创建多个 store。<br>你可以通过createStore()接口创建你的store，第一个参数就是之前组合好的reducer，第二个参数用于设置 state 初始状态。第三个参数是一个高阶函数，主要用于Middleware。<br>store主要职责：</p>
+<ul>
+<li>提供 getState() 方法获取 state；</li>
+<li>提供 dispatch(action)方法更新 state；</li>
+<li>通过subscribe(listener) 注册监听器;</li>
+</ul>
+<h1 id="Middleware"><a href="#Middleware" class="headerlink" title="Middleware"></a>Middleware</h1><p>Middleware提供的是位于 action 被发起之后，到达 reducer 之前的扩展点。 你可以利用 Middleware 来进行日志记录、创建崩溃报告、调用异步接口或者路由等等。<br>Redux middleware 就像一个链表。每个 middleware 方法既能调用 next(action) 传递 action 到下一个 middleware，也可以调用 dispatch(action) 重新开始处理，或者什么都不做而仅仅终止 action 的处理进程。<br>创建 store 时， applyMiddleware 方法的入参定义了 middleware 链，你只需要按照规定的格式编写你自己的Middleware即可。<br>applyMiddleware 实现原理其实很简单，代理store.dispatch，在调用前后插入自己的逻辑。</p>
+<h1 id="reducer-enhancer"><a href="#reducer-enhancer" class="headerlink" title="reducer enhancer"></a>reducer enhancer</h1><p>reducer enhancer作为一个函数，接收 reducer 作为参数并返回一个新的 reducer，这个新的 reducer 可以处理新的 action，或者维护更多的 state，亦或者将它无法处理的 action 委托给原始的 reducer 处理。<br>reducer enhancer可以看做是reducer的扩展，主要职责：</p>
+<ul>
+<li>统一修正reducer处理后的数据</li>
+<li>统一计算reducer处理后的计算属性</li>
+<li>实现撤销重做</li>
+</ul>
+<h1 id="Ending…"><a href="#Ending…" class="headerlink" title="Ending…"></a>Ending…</h1><p>想要讲清楚Redux不是一件容易的事，文章也只是介绍了Redux的一些基本概念。<br>要想真正理清Redux，对应的项目经验是必不可少的。<br>如果你还在用low爆了的中介者模式或者难以管理的事件广播的话，强烈推荐迁移成Redux，你会发现一片不一样的天空。。。</p>
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+        
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2018/06/14/2018/老调重弹 webpack/" rel="next" title="老调重弹 webpack">
+                <i class="fa fa-chevron-left"></i> 老调重弹 webpack
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+      <div id="hypercomments_widget"></div>
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image" src="/images/avatar.gif" alt="LiuLingyang">
+          <p class="site-author-name" itemprop="name">LiuLingyang</p>
+           
+              <p class="site-description motion-element" itemprop="description"></p>
+          
+        </div>
+        <nav class="site-state motion-element">
+
+          
+            <div class="site-state-item site-state-posts">
+              <a href="/archives">
+                <span class="site-state-item-count">6</span>
+                <span class="site-state-item-name">日志</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-categories">
+              
+                <span class="site-state-item-count">4</span>
+                <span class="site-state-item-name">分类</span>
+              
+            </div>
+          
+
+          
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+        </div>
+
+        
+        
+
+        
+        
+
+        
+
+
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#前言"><span class="nav-number">1.</span> <span class="nav-text">前言</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Why-Redux"><span class="nav-number">2.</span> <span class="nav-text">Why Redux</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#单向数据流"><span class="nav-number">3.</span> <span class="nav-text">单向数据流</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Action"><span class="nav-number">4.</span> <span class="nav-text">Action</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Reducer"><span class="nav-number">5.</span> <span class="nav-text">Reducer</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#store"><span class="nav-number">6.</span> <span class="nav-text">store</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Middleware"><span class="nav-number">7.</span> <span class="nav-text">Middleware</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#reducer-enhancer"><span class="nav-number">8.</span> <span class="nav-text">reducer enhancer</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Ending…"><span class="nav-number">9.</span> <span class="nav-text">Ending…</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2019</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">LiuLingyang</span>
+</div>
+
+
+<div class="powered-by">
+  由 <a class="theme-link" href="https://hexo.io">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Pisces
+  </a>
+</div>
+
+
+        
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.0"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.0"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.0"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.0"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.0"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.0"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.0"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+		<script type="text/javascript">
+		_hcwp = window._hcwp || [];
+
+		_hcwp.push({widget:"Bloggerstream", widget_id: 95658, selector:".hc-comment-count", label: "{\%COUNT%\}" });
+
+		
+		_hcwp.push({widget:"Stream", widget_id: 95658, xid: "2018/09/26/2018/你可能需要 Redux/"});
+		
+
+		(function() {
+		if("HC_LOAD_INIT" in window)return;
+		HC_LOAD_INIT = true;
+		var lang = (navigator.language || navigator.systemLanguage || navigator.userLanguage || "en").substr(0, 2).toLowerCase();
+		var hcc = document.createElement("script"); hcc.type = "text/javascript"; hcc.async = true;
+		hcc.src = ("https:" == document.location.protocol ? "https" : "http")+"://w.hypercomments.com/widget/hc/95658/"+lang+"/widget.js";
+		var s = document.getElementsByTagName("script")[0];
+		s.parentNode.insertBefore(hcc, s.nextSibling);
+		})();
+		</script>
+
+	
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
