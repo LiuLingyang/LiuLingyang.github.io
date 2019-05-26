@@ -87,18 +87,18 @@
 
 
 
-<meta name="description" content="前言目前单页面应用（SPA）很是流行，同时也带了一些问题，如SEO不友好，首屏加载慢等，为了解决上述问题，所谓的服务端渲染就粉墨登场了。React 作为一个 SPA 应用开发框架同时也支持服务端渲染，本文将详细介绍如何搭建一个 React 服务端渲染的项目。 在你阅读之前，你需要具备以下技术能力：   React 全家桶 Webpack ES6 Promise Express   同构这里我们把”">
+<meta name="description" content="前言目前单页面应用（SPA）很是流行，同时也带了一些问题，如SEO不友好，首屏加载慢等，为了解决上述问题，所谓的服务端渲染就粉墨登场了。React 作为一个 SPA 应用开发框架同时也支持服务端渲染，本文将详细介绍如何搭建一个 React 服务端渲染的项目。如果你倾向于开箱即用的体验，可以尝试更高层次的解决方案 Next.js。 在你阅读之前，你需要具备以下技术能力：   React 全家桶 We">
 <meta property="og:type" content="article">
 <meta property="og:title" content="React 同构实践">
 <meta property="og:url" content="http://yoursite.com/2019/05/23/2019/React 同构实践/index.html">
 <meta property="og:site_name" content="知识即性感">
-<meta property="og:description" content="前言目前单页面应用（SPA）很是流行，同时也带了一些问题，如SEO不友好，首屏加载慢等，为了解决上述问题，所谓的服务端渲染就粉墨登场了。React 作为一个 SPA 应用开发框架同时也支持服务端渲染，本文将详细介绍如何搭建一个 React 服务端渲染的项目。 在你阅读之前，你需要具备以下技术能力：   React 全家桶 Webpack ES6 Promise Express   同构这里我们把”">
+<meta property="og:description" content="前言目前单页面应用（SPA）很是流行，同时也带了一些问题，如SEO不友好，首屏加载慢等，为了解决上述问题，所谓的服务端渲染就粉墨登场了。React 作为一个 SPA 应用开发框架同时也支持服务端渲染，本文将详细介绍如何搭建一个 React 服务端渲染的项目。如果你倾向于开箱即用的体验，可以尝试更高层次的解决方案 Next.js。 在你阅读之前，你需要具备以下技术能力：   React 全家桶 We">
 <meta property="og:locale" content="zh-Hans">
 <meta property="og:image" content="https://upload-images.jianshu.io/upload_images/13276697-fd85a3da3c6ec8a0.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
-<meta property="og:updated_time" content="2019-05-24T07:23:17.391Z">
+<meta property="og:updated_time" content="2019-05-26T01:41:36.629Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="React 同构实践">
-<meta name="twitter:description" content="前言目前单页面应用（SPA）很是流行，同时也带了一些问题，如SEO不友好，首屏加载慢等，为了解决上述问题，所谓的服务端渲染就粉墨登场了。React 作为一个 SPA 应用开发框架同时也支持服务端渲染，本文将详细介绍如何搭建一个 React 服务端渲染的项目。 在你阅读之前，你需要具备以下技术能力：   React 全家桶 Webpack ES6 Promise Express   同构这里我们把”">
+<meta name="twitter:description" content="前言目前单页面应用（SPA）很是流行，同时也带了一些问题，如SEO不友好，首屏加载慢等，为了解决上述问题，所谓的服务端渲染就粉墨登场了。React 作为一个 SPA 应用开发框架同时也支持服务端渲染，本文将详细介绍如何搭建一个 React 服务端渲染的项目。如果你倾向于开箱即用的体验，可以尝试更高层次的解决方案 Next.js。 在你阅读之前，你需要具备以下技术能力：   React 全家桶 We">
 <meta name="twitter:image" content="https://upload-images.jianshu.io/upload_images/13276697-fd85a3da3c6ec8a0.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
 
 
@@ -352,7 +352,7 @@
       
 
       
-        <h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><p>目前单页面应用（SPA）很是流行，同时也带了一些问题，如SEO不友好，首屏加载慢等，为了解决上述问题，所谓的服务端渲染就粉墨登场了。<br>React 作为一个 SPA 应用开发框架同时也支持服务端渲染，本文将详细介绍如何搭建一个 React 服务端渲染的项目。</p>
+        <h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><p>目前单页面应用（SPA）很是流行，同时也带了一些问题，如SEO不友好，首屏加载慢等，为了解决上述问题，所谓的服务端渲染就粉墨登场了。<br>React 作为一个 SPA 应用开发框架同时也支持服务端渲染，本文将详细介绍如何搭建一个 React 服务端渲染的项目。<br>如果你倾向于开箱即用的体验，可以尝试更高层次的解决方案 <a href="https://nextjs.org/" target="_blank" rel="noopener">Next.js</a>。</p>
 <p>在你阅读之前，你需要具备以下技术能力：</p>
 <blockquote>
 <ul>
@@ -399,7 +399,7 @@
 <h1 id="启动"><a href="#启动" class="headerlink" title="启动"></a>启动</h1><p>最后我们对 package.json 进行修改<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">"scripts"</span>: &#123;</span><br><span class="line">    <span class="string">"dev"</span>: <span class="string">"node server/index.js"</span>,</span><br><span class="line">    <span class="string">"dll"</span>: <span class="string">"webpack --config build/webpack.dll.config.js"</span>,</span><br><span class="line">    <span class="string">"start"</span>: <span class="string">"cross-env NODE_ENV=production node server/index.js"</span>,</span><br><span class="line">    <span class="string">"build"</span>: <span class="string">"rimraf dist &amp;&amp; npm run build:client &amp;&amp; npm run build:server"</span>,</span><br><span class="line">    <span class="string">"build:client"</span>: <span class="string">"webpack --config build/webpack.prod.config.js"</span>,</span><br><span class="line">    <span class="string">"build:server"</span>: <span class="string">"webpack --config build/webpack.server.config.js"</span></span><br><span class="line">&#125;,</span><br></pre></td></tr></table></figure></p>
 <h2 id="本地启动工程"><a href="#本地启动工程" class="headerlink" title="本地启动工程"></a>本地启动工程</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 安装依赖</span></span><br><span class="line">npm install</span><br><span class="line"></span><br><span class="line"><span class="comment"># 初次配置需要执行，生成 vendor.dll 文件</span></span><br><span class="line">npm run dll</span><br><span class="line"></span><br><span class="line"><span class="comment"># 启动工程</span></span><br><span class="line">npm run dev</span><br></pre></td></tr></table></figure>
 <h2 id="执行打包"><a href="#执行打包" class="headerlink" title="执行打包"></a>执行打包</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 使用生产环境配置打包</span></span><br><span class="line">npm run build</span><br><span class="line"></span><br><span class="line"><span class="comment"># 启动工程</span></span><br><span class="line">npm run start</span><br></pre></td></tr></table></figure>
-<h1 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h1><p>到这里，整个 React 同构体系中关键知识点的原理就串联起来了。<br>当然，本文所涉及的同构知识还是非常有限，下一篇中我还将介绍同构中异步数据的获取 + Redux 的使用及同构中碰到的一些疑难杂症。<br>如果你看了文章觉得云里雾里，可以将代码自行 fork 下来跑一跑，我相信可以帮助到你。<br>工程地址：<a href="https://github.com/LiuLingyang/react-ssr-framework" target="_blank" rel="noopener">https://github.com/LiuLingyang/react-ssr-framework</a></p>
+<h1 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h1><p>到这里，整个 React 同构体系中关键知识点的原理就串联起来了。<br>当然，本文所涉及的同构知识还是非常有限，下一篇中我还将介绍同构中异步数据的获取 + Redux 的使用。<br>如果你看了文章觉得云里雾里，可以将代码自行 fork 下来跑一跑，我相信可以帮助到你。<br>工程地址：<a href="https://github.com/LiuLingyang/react-ssr-framework" target="_blank" rel="noopener">https://github.com/LiuLingyang/react-ssr-framework</a></p>
 
       
     </div>
@@ -445,6 +445,10 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2019/05/25/2019/React 同构实践：结合 Redux/" rel="prev" title="React 同构实践：结合 Redux">
+                React 同构实践：结合 Redux <i class="fa fa-chevron-right"></i>
+              </a>
             
           </div>
         </div>
@@ -516,7 +520,7 @@
           
             <div class="site-state-item site-state-posts">
               <a href="/archives">
-                <span class="site-state-item-count">7</span>
+                <span class="site-state-item-count">8</span>
                 <span class="site-state-item-name">日志</span>
               </a>
             </div>

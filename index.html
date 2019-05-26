@@ -238,6 +238,190 @@
   
 
   <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/05/25/2019/React 同构实践：结合 Redux/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="LiuLingyang">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="知识即性感">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
+                <a class="post-title-link" href="/2019/05/25/2019/React 同构实践：结合 Redux/" itemprop="url">
+                  React 同构实践：结合 Redux
+                </a>
+              
+            
+          </h1>
+        
+
+        
+        <div class="post-author"><i class="fa fa-user-o"></i>&nbsp;&nbsp;LiuLingyang</div>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-05-25T00:00:00+08:00">
+                2019-05-25
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/React/" itemprop="url" rel="index">
+                    <span itemprop="name">React</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+            <!--noindex-->
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2019/05/25/2019/React 同构实践：结合 Redux/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count hc-comment-count" data-xid="2019/05/25/2019/React 同构实践：结合 Redux/" itemprop="commentsCount"></span>
+                </a>
+              </span>
+              <!--/noindex-->
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><p>上一篇文章中，我们介绍了 React 同构的基本原理，但没有涉及数据获取方面。本章我们将结合 Redux 来讲解同构应用中服务端如何异步获取数据。<br>如果你对 Redux 还不够熟悉，请先移步 <a href="http://cn.redux.js.org/" target="_blank" rel="noopener">http://cn.redux.js.org/</a></p>
+<h1 id="数据预取"><a href="#数据预取" class="headerlink" title="数据预取"></a>数据预取</h1><p>客户端渲染中，异步数据结合 Redux 的使用方式遵循下面的流程：</p>
+<ul>
+<li>创建 Store</li>
+<li>根据路由显示组件</li>
+<li>派发 Action 获取数据</li>
+<li>更新 Store 中的数据</li>
+<li>组件 Rerender</li>
+</ul>
+<p>而在服务器端，页面一旦确定内容，就没有办法 Rerender 了，这就要求组件显示的时候，就要把 Store 的数据都准备好，所以服务器端异步数据结合 Redux 的使用方式，流程是下面的样子：</p>
+<ul>
+<li>创建 Store</li>
+<li>匹配请求路由</li>
+<li>获取数据</li>
+<li>结合数据和组件生成 HTML</li>
+</ul>
+<p>下面我们分析下服务器端渲染这部分的流程。</p>
+<h2 id="创建-Store"><a href="#创建-Store" class="headerlink" title="创建 Store"></a>创建 Store</h2><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> (initialState) =&gt; &#123;</span><br><span class="line">  <span class="keyword">return</span> createStore(</span><br><span class="line">    reducer,</span><br><span class="line">    initialState,</span><br><span class="line">    compose(</span><br><span class="line">      applyMiddleware(thunkMiddleware),</span><br><span class="line">      (process.env.NODE_ENV !== <span class="string">'server'</span> &amp;&amp; <span class="built_in">window</span>.__REDUX_DEVTOOLS_EXTENSION__ &amp;&amp; <span class="built_in">window</span>.__REDUX_DEVTOOLS_EXTENSION__()) || compose</span><br><span class="line">    )</span><br><span class="line">  );</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> store = createStore(&#123;&#125;);</span><br></pre></td></tr></table></figure>
+<p>这里需要注意的是服务端每次 renderToString 都需要创建一个全新的空 Store。</p>
+<h2 id="匹配请求路由"><a href="#匹配请求路由" class="headerlink" title="匹配请求路由"></a>匹配请求路由</h2><p>服务端在正式渲染前，如果某些内容是通过异步接口请求获取的，那么就需要在 renderToString 前加载数据，但一般不同的路由都会对应不同的异步请求，所以这里我们需要添加路由匹配的逻辑。<br><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> &#123; matchRoutes &#125; = <span class="built_in">require</span>(<span class="string">'react-router-config'</span>);</span><br><span class="line"></span><br><span class="line"><span class="comment">// 匹配路由</span></span><br><span class="line"><span class="keyword">let</span> matchs = matchRoutes(router, request.path);</span><br><span class="line">promises = matchs.map(<span class="function">(<span class="params">&#123; route, match &#125;</span>) =&gt;</span> &#123;</span><br><span class="line">  <span class="keyword">const</span> loadData = route.loadData;</span><br><span class="line">  <span class="comment">// match.params获取匹配的路由参数</span></span><br><span class="line">  <span class="keyword">return</span> loadData ? loadData(store, <span class="built_in">Object</span>.assign(match.params, request.query)) : <span class="built_in">Promise</span>.resolve(<span class="literal">null</span>);</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure></p>
+<h2 id="获取数据"><a href="#获取数据" class="headerlink" title="获取数据"></a>获取数据</h2><p>这里请求数据需要使用<a href="https://link.juejin.im/?target=http%3A%2F%2Fwww.redux.org.cn%2Fdocs%2Fadvanced%2FAsyncActions.html" target="_blank" rel="noopener">异步 Action</a>，使用 redux-thunk 中间件就可以dispatch函数了。<br>而请求数据一般两种做法，第一种直接挂在了路由上，另一种做法是把请求数据的方法放到对应的组件上定义成静态方法。<br>但这里我用了 loadable 动态加载组件后，定义在组件上的静态方法在服务端就取不到，所以只能采用第一种做法（不知道大家有没有遇到这个问题？）。<br><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">    path: <span class="string">'/top-list'</span>,</span><br><span class="line">    component: loadable(<span class="function"><span class="params">()</span> =&gt;</span> <span class="keyword">import</span>(<span class="string">'../containers/TopList'</span>)),</span><br><span class="line">    exact: <span class="literal">true</span>,</span><br><span class="line">    loadData(store) &#123;</span><br><span class="line">      <span class="keyword">return</span> store.dispatch(fatchTopList());</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br></pre></td></tr></table></figure></p>
+<h2 id="返回-HTML"><a href="#返回-HTML" class="headerlink" title="返回 HTML"></a>返回 HTML</h2><p>获取数据，更新 store 后，可以用 renderToString 生成 html 了。<br><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// resolve所有loadData</span></span><br><span class="line"><span class="built_in">Promise</span>.all(promises).then(<span class="function"><span class="params">()</span> =&gt;</span> &#123;</span><br><span class="line">  <span class="comment">// 异步数据请求全部完成后进行render</span></span><br><span class="line">  render()；</span><br><span class="line">&#125;)；</span><br></pre></td></tr></table></figure></p>
+<p>这里的 render 方法核心就是 renderToString，因为还有一些其他逻辑，所以封装了一层。</p>
+<h1 id="同步数据"><a href="#同步数据" class="headerlink" title="同步数据"></a>同步数据</h1><p>客户端渲染出来的 html 内容要和服务端返回的 html 内容一致，这就需要保证客户端的数据和服务端的数据是一致的。也就是说服务端获取数据生成 store 后，需要同步到客户端。<br>服务端调用 store.getState()，获取到 state 后，通过 window.<strong>INITIAL_STATE</strong> 保存在客户端。<br><figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">script</span> <span class="attr">type</span>=<span class="string">"text/javascript"</span>&gt;</span><span class="undefined"></span></span><br><span class="line"><span class="javascript">  <span class="built_in">window</span>.__INITIAL_STATE__ = $&#123;<span class="built_in">JSON</span>.stringify(store.getStat())&#125;</span></span><br><span class="line"><span class="undefined"></span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br></pre></td></tr></table></figure></p>
+<h1 id="客户端获取数据"><a href="#客户端获取数据" class="headerlink" title="客户端获取数据"></a>客户端获取数据</h1><p>服务端将数据存到 window.<strong>INITIAL_STATE</strong> 后，客户端需要在 createStore 的时候获取初始化的 state。<br><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 获取服务端初始化的state，创建store</span></span><br><span class="line"><span class="keyword">const</span> initialState = <span class="built_in">window</span>.__INITIAL_STATE__;</span><br><span class="line"><span class="keyword">const</span> store = createStore(initialState);</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> App = <span class="function"><span class="params">()</span> =&gt;</span> &#123;</span><br><span class="line">  <span class="keyword">return</span> (</span><br><span class="line">    &lt;Provider store=&#123;store&#125;&gt;</span><br><span class="line">      &lt;Router&gt;</span><br><span class="line">        &lt;Component /&gt;</span><br><span class="line">      &lt;<span class="regexp">/Router&gt;</span></span><br><span class="line"><span class="regexp">    &lt;/</span>Provider&gt;</span><br><span class="line">  );</span><br><span class="line">&#125;;</span><br><span class="line"><span class="keyword">return</span> <span class="xml"><span class="tag">&lt;<span class="name">App</span> /&gt;</span>;</span></span><br></pre></td></tr></table></figure></p>
+<h1 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h1><p>本章主要讲解结合 Redux 情况下的 React 同构应用，所涉及的知识点还是比较多的，单单一篇文章也很难涉及全部的知识点，实际开发过程中更是容易<br>出现千奇八怪的问题。实践出真知，还是要亲自写一下才能深入了解。</p>
+
+          
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/05/23/2019/React 同构实践/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -353,7 +537,7 @@
       
         
           
-            <h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><p>目前单页面应用（SPA）很是流行，同时也带了一些问题，如SEO不友好，首屏加载慢等，为了解决上述问题，所谓的服务端渲染就粉墨登场了。<br>React 作为一个 SPA 应用开发框架同时也支持服务端渲染，本文将详细介绍如何搭建一个 React 服务端渲染的项目。</p>
+            <h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><p>目前单页面应用（SPA）很是流行，同时也带了一些问题，如SEO不友好，首屏加载慢等，为了解决上述问题，所谓的服务端渲染就粉墨登场了。<br>React 作为一个 SPA 应用开发框架同时也支持服务端渲染，本文将详细介绍如何搭建一个 React 服务端渲染的项目。<br>如果你倾向于开箱即用的体验，可以尝试更高层次的解决方案 <a href="https://nextjs.org/" target="_blank" rel="noopener">Next.js</a>。</p>
 <p>在你阅读之前，你需要具备以下技术能力：</p>
 <blockquote>
 <ul>
@@ -400,7 +584,7 @@
 <h1 id="启动"><a href="#启动" class="headerlink" title="启动"></a>启动</h1><p>最后我们对 package.json 进行修改<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">"scripts"</span>: &#123;</span><br><span class="line">    <span class="string">"dev"</span>: <span class="string">"node server/index.js"</span>,</span><br><span class="line">    <span class="string">"dll"</span>: <span class="string">"webpack --config build/webpack.dll.config.js"</span>,</span><br><span class="line">    <span class="string">"start"</span>: <span class="string">"cross-env NODE_ENV=production node server/index.js"</span>,</span><br><span class="line">    <span class="string">"build"</span>: <span class="string">"rimraf dist &amp;&amp; npm run build:client &amp;&amp; npm run build:server"</span>,</span><br><span class="line">    <span class="string">"build:client"</span>: <span class="string">"webpack --config build/webpack.prod.config.js"</span>,</span><br><span class="line">    <span class="string">"build:server"</span>: <span class="string">"webpack --config build/webpack.server.config.js"</span></span><br><span class="line">&#125;,</span><br></pre></td></tr></table></figure></p>
 <h2 id="本地启动工程"><a href="#本地启动工程" class="headerlink" title="本地启动工程"></a>本地启动工程</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 安装依赖</span></span><br><span class="line">npm install</span><br><span class="line"></span><br><span class="line"><span class="comment"># 初次配置需要执行，生成 vendor.dll 文件</span></span><br><span class="line">npm run dll</span><br><span class="line"></span><br><span class="line"><span class="comment"># 启动工程</span></span><br><span class="line">npm run dev</span><br></pre></td></tr></table></figure>
 <h2 id="执行打包"><a href="#执行打包" class="headerlink" title="执行打包"></a>执行打包</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 使用生产环境配置打包</span></span><br><span class="line">npm run build</span><br><span class="line"></span><br><span class="line"><span class="comment"># 启动工程</span></span><br><span class="line">npm run start</span><br></pre></td></tr></table></figure>
-<h1 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h1><p>到这里，整个 React 同构体系中关键知识点的原理就串联起来了。<br>当然，本文所涉及的同构知识还是非常有限，下一篇中我还将介绍同构中异步数据的获取 + Redux 的使用及同构中碰到的一些疑难杂症。<br>如果你看了文章觉得云里雾里，可以将代码自行 fork 下来跑一跑，我相信可以帮助到你。<br>工程地址：<a href="https://github.com/LiuLingyang/react-ssr-framework" target="_blank" rel="noopener">https://github.com/LiuLingyang/react-ssr-framework</a></p>
+<h1 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h1><p>到这里，整个 React 同构体系中关键知识点的原理就串联起来了。<br>当然，本文所涉及的同构知识还是非常有限，下一篇中我还将介绍同构中异步数据的获取 + Redux 的使用。<br>如果你看了文章觉得云里雾里，可以将代码自行 fork 下来跑一跑，我相信可以帮助到你。<br>工程地址：<a href="https://github.com/LiuLingyang/react-ssr-framework" target="_blank" rel="noopener">https://github.com/LiuLingyang/react-ssr-framework</a></p>
 
           
         
@@ -1742,7 +1926,7 @@ const app = new Vue({
           
             <div class="site-state-item site-state-posts">
               <a href="/archives">
-                <span class="site-state-item-count">7</span>
+                <span class="site-state-item-count">8</span>
                 <span class="site-state-item-name">日志</span>
               </a>
             </div>
