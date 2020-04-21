@@ -353,7 +353,7 @@
       
         
           
-            <p>#前言<br>先抛出几个问题：</p>
+            <h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><p>先抛出几个问题：</p>
 <ul>
 <li>css 加载会不会阻塞 js 的加载？（不会）</li>
 <li>css 加载会不会阻塞 js 的执行？（会）</li>
@@ -365,16 +365,16 @@
 <li>js 执行会不会阻塞 DOM 的渲染？（会）</li>
 </ul>
 <p>可以看出 js 是全阻塞的，这也是为什么 js 要放尾部的原因。<br>至于 css 放头部则是为了避免页面一开始样式，而后出现样式导致页面闪动情况，这样用户体验就比较差了。</p>
-<p>#浏览器的主要进程和职责<br><img src="https://upload-images.jianshu.io/upload_images/13276697-efa7667456530d8f.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt><br>关于 css，js 的阻塞问题，都跟浏览器的渲染进程有关。而渲染进程又是多线程的。理清各个线程的职责及相互之间的合作关系，就能窥探其原理。</p>
+<h1 id="浏览器的主要进程和职责"><a href="#浏览器的主要进程和职责" class="headerlink" title="浏览器的主要进程和职责"></a>浏览器的主要进程和职责</h1><p><img src="https://upload-images.jianshu.io/upload_images/13276697-efa7667456530d8f.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt><br>关于 css，js 的阻塞问题，都跟浏览器的渲染进程有关。而渲染进程又是多线程的。理清各个线程的职责及相互之间的合作关系，就能窥探其原理。</p>
 <ul>
 <li>JS 引擎线程（单线程）：负责解析 Javascript 脚本，运行代码</li>
-<li>GUI 渲染线程：负责渲染浏览器界面，解析 HTML，CSS，构建 DOM Tree，Style Tree 和 Render Tree，布局和绘制等<blockquote>
+<li>GUI 渲染线程：负责渲染浏览器界面，解析 HTML，CSS，构建 DOM Tree，Style Tree 和 Render Tree，布局和绘制等</li>
+</ul>
+<blockquote>
 <p>注意：GUI 渲染线程与 JS 引擎线程是互斥的，当 JS 引擎执行时 GUI 线程会被挂起，所以当 JS 加载和执行时，会阻塞住 DOM 的解析和渲染，导致白屏时间很长</p>
 </blockquote>
-</li>
-</ul>
-<p>#浏览器渲染流程<br><img src="https://upload-images.jianshu.io/upload_images/13276697-fd05e089969cdbf0.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt></p>
-<p>1.解析 HTML 生成 DOM Tree 2.解析 CSS 生成 Style Tree 3.将 DOM Tree 与 Style Tree 合并在一起生成 Render Tree 4.遍历 Render Tree 开始布局，计算每个节点的位置大小信息（Layout） 5.绘制 Render Tree，绘制页面的像素信息（Painting），显示到屏幕上（Display）</p>
+<h1 id="浏览器渲染流程"><a href="#浏览器渲染流程" class="headerlink" title="浏览器渲染流程"></a>浏览器渲染流程</h1><p><img src="https://upload-images.jianshu.io/upload_images/13276697-fd05e089969cdbf0.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt></p>
+<p>1.解析 HTML 生成 DOM Tree<br>2.解析 CSS 生成 Style Tree<br>3.将 DOM Tree 与 Style Tree 合并在一起生成 Render Tree<br>4.遍历 Render Tree 开始布局，计算每个节点的位置大小信息（Layout）<br>5.绘制 Render Tree，绘制页面的像素信息（Painting），显示到屏幕上（Display）</p>
 <blockquote>
 <p>DOM Tree 和 Style Tree 是并行构建的，所以 CSS 加载不会阻塞 DOM 的解析</p>
 </blockquote>
@@ -384,16 +384,15 @@
 <blockquote>
 <p>GUI 渲染线程与 JS 引擎线程是互斥的，加载解析 css 时，JS 引擎会被挂起，所以 css 会阻塞 js 的执行</p>
 </blockquote>
-<p>#回流和重绘</p>
-<blockquote>
+<h1 id="回流和重绘"><a href="#回流和重绘" class="headerlink" title="回流和重绘"></a>回流和重绘</h1><blockquote>
 <p>回流必将引起重绘，重绘不一定会引起回流</p>
 </blockquote>
 <p>回流(Reflow)：当 Render Tree 中部分或全部元素的尺寸、结构、或某些属性发生改变时,浏览器重新渲染部分或全部文档的过程称为回流<br>重绘(Repaint)：当页面中元素样式的改变并不影响它在文档流中的位置时（例如：color、background-color、visibility 等）,浏览器会将新样式赋予给元素并重新绘制它,这个过程称为重绘</p>
 <blockquote>
 <p>回流比重绘的代价要更高</p>
 </blockquote>
-<p>#资源加载优先级<br>想要提升页面的加载速度，除了关注 css，js 阻塞的问题外，了解资源加载的优先级同样重要。<br>我们知道资源加载本身不存在互相阻塞的问题，但浏览器依然会按照资源默认的优先级确定加载顺序：<br>1.html 、 css 、 font 这三种类型的资源优先级最高 2.然后 script 、 xhr 请求 3.接着是图片、语音、视频</p>
-<p>然而，有些资源我们知道很重要，想优先加载；有些资源无关紧要，想延后加载，那么如何手动控制浏览器加载优先级呢？<br>主要有 4 种指令：</p>
+<h1 id="资源加载优先级"><a href="#资源加载优先级" class="headerlink" title="资源加载优先级"></a>资源加载优先级</h1><p>想要提升页面的加载速度，除了关注 css，js 阻塞的问题外，了解资源加载的优先级同样重要。<br>我们知道资源加载本身不存在互相阻塞的问题，但浏览器依然会按照资源默认的优先级确定加载顺序：<br>1.html 、 css 、 font 这三种类型的资源优先级最高<br>2.然后 script 、 xhr 请求<br>3.接着是图片、语音、视频</p>
+<p>然而，有些资源我们知道很重要，想优先加载；有些资源无关紧要，想延后加载，那么如何手动控制浏览器加载优先级呢？<br>主要有4种指令：</p>
 <ul>
 <li>preload 预加载（提升优先级）：通知浏览器接下来马上就会用到的资源，并尽快开始加载资源</li>
 <li>prefetch 预获取（最低优先级）：通知浏览器这是稍后可能需要用到的东西，可以延迟加载（在带宽空闲(idle)时再加载）</li>
