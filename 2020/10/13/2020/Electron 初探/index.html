@@ -1,0 +1,763 @@
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="zh-Hans">
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=5.1.0" rel="stylesheet" type="text/css">
+
+
+  <meta name="keywords" content="Hexo, NexT">
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.1.0">
+
+
+
+
+
+
+<meta name="description" content="前言随着浏览器，移动设备变得越来越强大，被移动和 web 应用取代的桌面应用呈稳定下滑趋势。但是桌面应用依然有它得天独厚的优势–常驻、留存、离线等。传统开发方式（C++，C#，Objective-c 等）费时又费力，基于 web 技术进行桌面应用的开发渐渐变成了主流（只需要写一份代码，打包出来的应用可以在 windows，linux，mac OS 上面运行，“write once,run ever">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Electron 初探">
+<meta property="og:url" content="http://yoursite.com/2020/10/13/2020/Electron 初探/index.html">
+<meta property="og:site_name" content="知识即性感">
+<meta property="og:description" content="前言随着浏览器，移动设备变得越来越强大，被移动和 web 应用取代的桌面应用呈稳定下滑趋势。但是桌面应用依然有它得天独厚的优势–常驻、留存、离线等。传统开发方式（C++，C#，Objective-c 等）费时又费力，基于 web 技术进行桌面应用的开发渐渐变成了主流（只需要写一份代码，打包出来的应用可以在 windows，linux，mac OS 上面运行，“write once,run ever">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="https://upload-images.jianshu.io/upload_images/13276697-18c65266d81b1c07.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="https://upload-images.jianshu.io/upload_images/13276697-5e10f19ddf1c9376.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="https://upload-images.jianshu.io/upload_images/13276697-9c61cc139b1b1110.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:updated_time" content="2020-10-14T09:24:33.690Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Electron 初探">
+<meta name="twitter:description" content="前言随着浏览器，移动设备变得越来越强大，被移动和 web 应用取代的桌面应用呈稳定下滑趋势。但是桌面应用依然有它得天独厚的优势–常驻、留存、离线等。传统开发方式（C++，C#，Objective-c 等）费时又费力，基于 web 技术进行桌面应用的开发渐渐变成了主流（只需要写一份代码，打包出来的应用可以在 windows，linux，mac OS 上面运行，“write once,run ever">
+<meta name="twitter:image" content="https://upload-images.jianshu.io/upload_images/13276697-18c65266d81b1c07.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    sidebar: {"position":"left","display":"post","offset":12,"offset_float":0,"b2t":false,"scrollpercent":false},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2020/10/13/2020/Electron 初探/">
+
+
+
+
+
+  <title> Electron 初探 | 知识即性感 </title>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">知识即性感</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br>
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>
+            
+            归档
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/10/13/2020/Electron 初探/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="LiuLingyang">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="知识即性感">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                Electron 初探
+              
+            
+          </h1>
+        
+
+        
+        <div class="post-author"><i class="fa fa-user-o"></i>&nbsp;&nbsp;LiuLingyang</div>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2020-10-13T00:00:00+08:00">
+                2020-10-13
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/多端/" itemprop="url" rel="index">
+                    <span itemprop="name">多端</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+            <!--noindex-->
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2020/10/13/2020/Electron 初探/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count hc-comment-count" data-xid="2020/10/13/2020/Electron 初探/" itemprop="commentsCount"></span>
+                </a>
+              </span>
+              <!--/noindex-->
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><p>随着浏览器，移动设备变得越来越强大，被移动和 web 应用取代的桌面应用呈稳定下滑趋势。<br>但是桌面应用依然有它得天独厚的优势–常驻、留存、离线等。<br>传统开发方式（C++，C#，Objective-c 等）费时又费力，基于 web 技术进行桌面应用的开发渐渐变成了主流（只需要写一份代码，打包出来的应用可以在 windows，linux，mac OS 上面运行，“write once,run everyWhere”）。</p>
+<h1 id="Electron-是什么？"><a href="#Electron-是什么？" class="headerlink" title="Electron 是什么？"></a>Electron 是什么？</h1><p>使用 JavaScript，HTML，CSS 和 Node.js 构建跨平台的桌面应用程序。<br>可以简单的理解为 Electron 为 web 项目套上了 Node.js 环境的壳，使得我们可以调用 Node.js 的丰富的 API。这样我们可以用 JavaScript 来写桌面应用，拓展很多我们在 web 端不能做的事情。</p>
+<h1 id="代表产品"><a href="#代表产品" class="headerlink" title="代表产品"></a>代表产品</h1><p>VsCode，Atom 等</p>
+<h1 id="打造你的第一个-Electron-应用"><a href="#打造你的第一个-Electron-应用" class="headerlink" title="打造你的第一个 Electron 应用"></a>打造你的第一个 Electron 应用</h1><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 官网已经有 electron-quick-start 仓库克隆下来</span></span><br><span class="line">git <span class="built_in">clone</span> https://github.com/electron/electron-quick-start</span><br><span class="line"><span class="comment"># 进入文件夹</span></span><br><span class="line"><span class="built_in">cd</span> electron-quick-start</span><br><span class="line"><span class="comment"># 安装依赖包并运行</span></span><br><span class="line">npm install &amp;&amp; npm start</span><br></pre></td></tr></table></figure>
+<p><img src="https://upload-images.jianshu.io/upload_images/13276697-18c65266d81b1c07.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt></p>
+<h1 id="与-React-结合"><a href="#与-React-结合" class="headerlink" title="与 React 结合"></a>与 React 结合</h1><p>1.使用 create-react-app 来创建 React 项目</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">npm install -g create-react-app</span><br><span class="line">create-react-app electron5-react-demo</span><br><span class="line"><span class="built_in">cd</span> electron5-react-demo &amp;&amp; npm start</span><br></pre></td></tr></table></figure>
+<p>2.集成 Electron 环境</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">npm install electron electron-builder electron-is-dev cross-env</span><br><span class="line">touch public/electron.js</span><br></pre></td></tr></table></figure>
+<p>将<a href="https://github.com/electron/electron-quick-start/blob/master/main.js" target="_blank" rel="noopener">官网</a> main.js 代码拷贝进 electron.js</p>
+<p>3.修改 package.json</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">    <span class="string">"name"</span>: <span class="string">"electron5-react-demo"</span>,</span><br><span class="line">    <span class="string">"version"</span>: <span class="string">"0.1.0"</span>,</span><br><span class="line">    <span class="string">"private"</span>: <span class="literal">true</span>,</span><br><span class="line">+    <span class="string">"main"</span>: <span class="string">"public/electron.js"</span>,</span><br><span class="line">+    <span class="string">"homepage"</span>: <span class="string">"./"</span>,</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">"electron-start"</span>: <span class="string">"electron ."</span>,</span><br><span class="line"><span class="string">"electron-build"</span>: <span class="string">"electron-builder"</span>,</span><br><span class="line"><span class="string">"build"</span>: <span class="string">"yarn react-build &amp;&amp; yarn electron-build"</span>,</span><br><span class="line"><span class="string">"start"</span>: <span class="string">"concurrently \"cross-env BROWSER=none yarn react-start\" \"wait-on http://localhost:3000 &amp;&amp; electron .\""</span></span><br></pre></td></tr></table></figure>
+<p>4.启动</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm start</span><br></pre></td></tr></table></figure>
+<p>看到如下界面，恭喜你，已经成功启动了：<br><img src="https://upload-images.jianshu.io/upload_images/13276697-5e10f19ddf1c9376.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt></p>
+<h1 id="与-Vue-结合"><a href="#与-Vue-结合" class="headerlink" title="与 Vue 结合"></a>与 Vue 结合</h1><p>使用 vue-cli 来创建 vue-electron 工程：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># Install vue-cli and scaffold boilerplate</span></span><br><span class="line">npm install -g vue-cli</span><br><span class="line">vue init simulatedgreg/electron-vue my-project</span><br><span class="line"></span><br><span class="line"><span class="comment"># Install dependencies and run your app</span></span><br><span class="line"><span class="built_in">cd</span> my-project</span><br><span class="line">npm install</span><br><span class="line">npm run dev</span><br></pre></td></tr></table></figure>
+<h1 id="主进程和渲染进程"><a href="#主进程和渲染进程" class="headerlink" title="主进程和渲染进程"></a>主进程和渲染进程</h1><h2 id="主进程"><a href="#主进程" class="headerlink" title="主进程"></a>主进程</h2><p>Electron 运行 package.json 的 main 脚本的进程被称为主进程。 在主进程中运行的脚本通过创建 web 页面来展示用户界面。<br>一个 Electron 应用总是有且只有一个主进程。<br>主进程还负责应用程序的生命周期（app 打开退出）和一些 app 事件的监听，同时负责系统底层 API 的调用</p>
+<h2 id="渲染进程"><a href="#渲染进程" class="headerlink" title="渲染进程"></a>渲染进程</h2><p>Electron 使用了 Chromium 来展示 web 页面，每个页面运行在自己的渲染进程中。<br>使用 BrowserWindow 类开启一个渲染进程并将这个实例运行在该进程中，当一个 BrowserWindow 实例被销毁后，相应的渲染进程也会被终止。<br>渲染进程可以有多个，每个渲染进程都是相互独立的，它们只关心自己所运行的 web 页面</p>
+<p><img src="https://upload-images.jianshu.io/upload_images/13276697-9c61cc139b1b1110.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt></p>
+<h1 id="进程间通信"><a href="#进程间通信" class="headerlink" title="进程间通信"></a>进程间通信</h1><h2 id="ipcMain-和-ipcRenderer"><a href="#ipcMain-和-ipcRenderer" class="headerlink" title="ipcMain 和 ipcRenderer"></a>ipcMain 和 ipcRenderer</h2><p>ipcMain 和 ipcRenderer 是两个好基友，通过这两个模块可以实现进程的通信。</p>
+<p>ipcMain<br>在主进程中使用，用来处理渲染进程（网页）发送的同步和异步的信息</p>
+<p>ipcRenderer<br>在渲染进程中使用，用来发送同步或异步的信息给主进程，也可以用来接收主进程的回复信息。</p>
+<p>以上两个模块的通信，可以理解成发布订阅模式/观察者模式。</p>
+<p>主进程</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 主进程主动向渲染进程发送消息</span></span><br><span class="line">win.webContents.send(<span class="string">"something1"</span>, <span class="string">"消息来自主进程"</span>); <span class="comment">// webContents</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> &#123; ipcMain &#125; = <span class="built_in">require</span>(<span class="string">"electron"</span>);</span><br><span class="line"><span class="comment">// 监听渲染程序发来的事件</span></span><br><span class="line">ipcMain.on(<span class="string">"something"</span>, (event, data) =&gt; &#123;</span><br><span class="line">  event.sender.send(<span class="string">"something1"</span>, <span class="string">"我是主进程返回的值"</span>);</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+<p>渲染进程</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> &#123; ipcRenderer &#125; = <span class="built_in">require</span>(<span class="string">"electron"</span>);</span><br><span class="line"><span class="comment">// 发送事件给主进程</span></span><br><span class="line">ipcRenderer.send(<span class="string">"something"</span>, <span class="string">"传输给主进程的值"</span>);</span><br><span class="line"></span><br><span class="line"><span class="comment">// 监听主进程发来的事件</span></span><br><span class="line">ipcRenderer.on(<span class="string">"something1"</span>, (event, data) =&gt; &#123;</span><br><span class="line">  <span class="built_in">console</span>.log(data); <span class="comment">// 我是主进程返回的值</span></span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+<h2 id="remote-模块"><a href="#remote-模块" class="headerlink" title="remote 模块"></a>remote 模块</h2><p>使用 remote 模块, 渲染进程可以调用主进程对象的方法, 而不必显式发送进程间消息。</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> &#123; dialog, getGlobal &#125; = <span class="built_in">require</span>(<span class="string">"electron"</span>).remote;</span><br><span class="line">dialog.showMessageBox(&#123;</span><br><span class="line">  type: <span class="string">"info"</span>,</span><br><span class="line">  message: <span class="string">"在渲染进程中直接使用主进程的模块"</span>,</span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line">getGlobal(<span class="string">"sharedObject"</span>); <span class="comment">// 获取全局共享变量</span></span><br></pre></td></tr></table></figure>
+<h1 id="打包"><a href="#打包" class="headerlink" title="打包"></a>打包</h1><p>目前，主流的打包工具有两个 electron-packager 和 electron-builder</p>
+<h2 id="electron-packager"><a href="#electron-packager" class="headerlink" title="electron-packager"></a>electron-packager</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">electron-packager &lt;sourcedir&gt; &lt;appname&gt; --platform=&lt;platform&gt; --arch=&lt;arch&gt; --out=out --icon=assets/app.ico --asar --overwrite --ignore=.git</span><br></pre></td></tr></table></figure>
+<ul>
+<li>sourcedir 项目入口 根据 package.json 的目录</li>
+<li>appname 包名</li>
+<li>platform 构建平台 包含 darwin, linux, mas, win32 all</li>
+<li>arch 构建架构 包含 ia32,x64,armv7l,arm64</li>
+<li>out 打包后的地址</li>
+<li>icon 打包图标</li>
+<li>asar 是否生成 app.asar, 不然就是自己的源码</li>
+<li>overwrite 覆盖上次打包</li>
+<li>ignore 不进行打包的文件</li>
+</ul>
+<h2 id="electron-builder"><a href="#electron-builder" class="headerlink" title="electron-builder"></a>electron-builder</h2><p>配置文件写在 package.json 中的 build 字段中</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">"build"</span>: &#123;</span><br><span class="line">    <span class="string">"appId"</span>: <span class="string">"com.example.app"</span>, <span class="comment">// 应用程序id</span></span><br><span class="line">    <span class="string">"productName"</span>: <span class="string">"测试"</span>, <span class="comment">// 应用名称</span></span><br><span class="line">    <span class="string">"directories"</span>: &#123;</span><br><span class="line">        <span class="string">"buildResources"</span>: <span class="string">"build"</span>, <span class="comment">// 构建资源路径默认为build</span></span><br><span class="line">        <span class="string">"output"</span>: <span class="string">"dist"</span> <span class="comment">// 输出目录 默认为dist</span></span><br><span class="line">    &#125;,</span><br><span class="line">    <span class="string">"mac"</span>: &#123;</span><br><span class="line">        <span class="string">"category"</span>: <span class="string">"public.app-category.developer-tools"</span>, <span class="comment">// 应用程序类别</span></span><br><span class="line">        <span class="string">"target"</span>: [<span class="string">"dmg"</span>, <span class="string">"zip"</span>],  <span class="comment">// 目标包类型</span></span><br><span class="line">        <span class="string">"icon"</span>: <span class="string">"build/icon.icns"</span> <span class="comment">// 图标的路径</span></span><br><span class="line">    &#125;,</span><br><span class="line">    <span class="string">"dmg"</span>: &#123;</span><br><span class="line">        <span class="string">"background"</span>: <span class="string">"build/background.tiff or build/background.png"</span>, <span class="comment">// 背景图像的路径</span></span><br><span class="line">        <span class="string">"title"</span>: <span class="string">"标题"</span>,</span><br><span class="line">        <span class="string">"icon"</span>: <span class="string">"build/icon.icns"</span> <span class="comment">// 图标路径</span></span><br><span class="line">    &#125;,</span><br><span class="line">    <span class="string">"win"</span>: &#123;</span><br><span class="line">        <span class="string">"target"</span>: [<span class="string">"nsis"</span>,<span class="string">"zip"</span>] <span class="comment">// 目标包类型</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>这里我们使用 electron-builder 打包</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm run build</span><br></pre></td></tr></table></figure>
+<p>构建完成后，项目目录中会出现一个 dist 目录（第一次打包时间会比较长）：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">.</span><br><span class="line">├── builder-effective-config.yaml</span><br><span class="line">├── electron5-react-demo-0.1.0-mac.zip</span><br><span class="line">├── electron5-react-demo-0.1.0.dmg</span><br><span class="line">├── electron5-react-demo-0.1.0.dmg.blockmap</span><br><span class="line">├── latest-mac.yml</span><br><span class="line">└── mac</span><br><span class="line">    └── electron5-react-demo.app</span><br></pre></td></tr></table></figure>
+<p>目录中的 dmg 就是 Mac 上面的安装程序</p>
+<h1 id="最后"><a href="#最后" class="headerlink" title="最后"></a>最后</h1><p>本文所有代码请戳 <a href="https://github.com/LiuLingyang/electron5-react-demo" target="_blank" rel="noopener">github</a> 了解更多</p>
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+        
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2020/04/24/2020/一文读懂 css js 阻塞问题/" rel="next" title="一文读懂 css js 阻塞问题">
+                <i class="fa fa-chevron-left"></i> 一文读懂 css js 阻塞问题
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+      <div id="hypercomments_widget"></div>
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image" src="/images/avatar.gif" alt="LiuLingyang">
+          <p class="site-author-name" itemprop="name">LiuLingyang</p>
+           
+              <p class="site-description motion-element" itemprop="description"></p>
+          
+        </div>
+        <nav class="site-state motion-element">
+
+          
+            <div class="site-state-item site-state-posts">
+              <a href="/archives">
+                <span class="site-state-item-count">11</span>
+                <span class="site-state-item-name">日志</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-categories">
+              
+                <span class="site-state-item-count">7</span>
+                <span class="site-state-item-name">分类</span>
+              
+            </div>
+          
+
+          
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+        </div>
+
+        
+        
+
+        
+        
+
+        
+
+
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#前言"><span class="nav-number">1.</span> <span class="nav-text">前言</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Electron-是什么？"><span class="nav-number">2.</span> <span class="nav-text">Electron 是什么？</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#代表产品"><span class="nav-number">3.</span> <span class="nav-text">代表产品</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#打造你的第一个-Electron-应用"><span class="nav-number">4.</span> <span class="nav-text">打造你的第一个 Electron 应用</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#与-React-结合"><span class="nav-number">5.</span> <span class="nav-text">与 React 结合</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#与-Vue-结合"><span class="nav-number">6.</span> <span class="nav-text">与 Vue 结合</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#主进程和渲染进程"><span class="nav-number">7.</span> <span class="nav-text">主进程和渲染进程</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#主进程"><span class="nav-number">7.1.</span> <span class="nav-text">主进程</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#渲染进程"><span class="nav-number">7.2.</span> <span class="nav-text">渲染进程</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#进程间通信"><span class="nav-number">8.</span> <span class="nav-text">进程间通信</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#ipcMain-和-ipcRenderer"><span class="nav-number">8.1.</span> <span class="nav-text">ipcMain 和 ipcRenderer</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#remote-模块"><span class="nav-number">8.2.</span> <span class="nav-text">remote 模块</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#打包"><span class="nav-number">9.</span> <span class="nav-text">打包</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#electron-packager"><span class="nav-number">9.1.</span> <span class="nav-text">electron-packager</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#electron-builder"><span class="nav-number">9.2.</span> <span class="nav-text">electron-builder</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#最后"><span class="nav-number">10.</span> <span class="nav-text">最后</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2020</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">LiuLingyang</span>
+</div>
+
+
+<div class="powered-by">
+  由 <a class="theme-link" href="https://hexo.io">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Pisces
+  </a>
+</div>
+
+
+        
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.0"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.0"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.0"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.0"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.0"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.0"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.0"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+		<script type="text/javascript">
+		_hcwp = window._hcwp || [];
+
+		_hcwp.push({widget:"Bloggerstream", widget_id: 95658, selector:".hc-comment-count", label: "{\%COUNT%\}" });
+
+		
+		_hcwp.push({widget:"Stream", widget_id: 95658, xid: "2020/10/13/2020/Electron 初探/"});
+		
+
+		(function() {
+		if("HC_LOAD_INIT" in window)return;
+		HC_LOAD_INIT = true;
+		var lang = (navigator.language || navigator.systemLanguage || navigator.userLanguage || "en").substr(0, 2).toLowerCase();
+		var hcc = document.createElement("script"); hcc.type = "text/javascript"; hcc.async = true;
+		hcc.src = ("https:" == document.location.protocol ? "https" : "http")+"://w.hypercomments.com/widget/hc/95658/"+lang+"/widget.js";
+		var s = document.getElementsByTagName("script")[0];
+		s.parentNode.insertBefore(hcc, s.nextSibling);
+		})();
+		</script>
+
+	
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

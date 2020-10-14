@@ -238,6 +238,216 @@
   
 
   <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/10/13/2020/Electron 初探/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="LiuLingyang">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="知识即性感">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
+                <a class="post-title-link" href="/2020/10/13/2020/Electron 初探/" itemprop="url">
+                  Electron 初探
+                </a>
+              
+            
+          </h1>
+        
+
+        
+        <div class="post-author"><i class="fa fa-user-o"></i>&nbsp;&nbsp;LiuLingyang</div>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2020-10-13T00:00:00+08:00">
+                2020-10-13
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/多端/" itemprop="url" rel="index">
+                    <span itemprop="name">多端</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+            <!--noindex-->
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2020/10/13/2020/Electron 初探/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count hc-comment-count" data-xid="2020/10/13/2020/Electron 初探/" itemprop="commentsCount"></span>
+                </a>
+              </span>
+              <!--/noindex-->
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><p>随着浏览器，移动设备变得越来越强大，被移动和 web 应用取代的桌面应用呈稳定下滑趋势。<br>但是桌面应用依然有它得天独厚的优势–常驻、留存、离线等。<br>传统开发方式（C++，C#，Objective-c 等）费时又费力，基于 web 技术进行桌面应用的开发渐渐变成了主流（只需要写一份代码，打包出来的应用可以在 windows，linux，mac OS 上面运行，“write once,run everyWhere”）。</p>
+<h1 id="Electron-是什么？"><a href="#Electron-是什么？" class="headerlink" title="Electron 是什么？"></a>Electron 是什么？</h1><p>使用 JavaScript，HTML，CSS 和 Node.js 构建跨平台的桌面应用程序。<br>可以简单的理解为 Electron 为 web 项目套上了 Node.js 环境的壳，使得我们可以调用 Node.js 的丰富的 API。这样我们可以用 JavaScript 来写桌面应用，拓展很多我们在 web 端不能做的事情。</p>
+<h1 id="代表产品"><a href="#代表产品" class="headerlink" title="代表产品"></a>代表产品</h1><p>VsCode，Atom 等</p>
+<h1 id="打造你的第一个-Electron-应用"><a href="#打造你的第一个-Electron-应用" class="headerlink" title="打造你的第一个 Electron 应用"></a>打造你的第一个 Electron 应用</h1><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 官网已经有 electron-quick-start 仓库克隆下来</span></span><br><span class="line">git <span class="built_in">clone</span> https://github.com/electron/electron-quick-start</span><br><span class="line"><span class="comment"># 进入文件夹</span></span><br><span class="line"><span class="built_in">cd</span> electron-quick-start</span><br><span class="line"><span class="comment"># 安装依赖包并运行</span></span><br><span class="line">npm install &amp;&amp; npm start</span><br></pre></td></tr></table></figure>
+<p><img src="https://upload-images.jianshu.io/upload_images/13276697-18c65266d81b1c07.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt></p>
+<h1 id="与-React-结合"><a href="#与-React-结合" class="headerlink" title="与 React 结合"></a>与 React 结合</h1><p>1.使用 create-react-app 来创建 React 项目</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">npm install -g create-react-app</span><br><span class="line">create-react-app electron5-react-demo</span><br><span class="line"><span class="built_in">cd</span> electron5-react-demo &amp;&amp; npm start</span><br></pre></td></tr></table></figure>
+<p>2.集成 Electron 环境</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">npm install electron electron-builder electron-is-dev cross-env</span><br><span class="line">touch public/electron.js</span><br></pre></td></tr></table></figure>
+<p>将<a href="https://github.com/electron/electron-quick-start/blob/master/main.js" target="_blank" rel="noopener">官网</a> main.js 代码拷贝进 electron.js</p>
+<p>3.修改 package.json</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">    <span class="string">"name"</span>: <span class="string">"electron5-react-demo"</span>,</span><br><span class="line">    <span class="string">"version"</span>: <span class="string">"0.1.0"</span>,</span><br><span class="line">    <span class="string">"private"</span>: <span class="literal">true</span>,</span><br><span class="line">+    <span class="string">"main"</span>: <span class="string">"public/electron.js"</span>,</span><br><span class="line">+    <span class="string">"homepage"</span>: <span class="string">"./"</span>,</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">"electron-start"</span>: <span class="string">"electron ."</span>,</span><br><span class="line"><span class="string">"electron-build"</span>: <span class="string">"electron-builder"</span>,</span><br><span class="line"><span class="string">"build"</span>: <span class="string">"yarn react-build &amp;&amp; yarn electron-build"</span>,</span><br><span class="line"><span class="string">"start"</span>: <span class="string">"concurrently \"cross-env BROWSER=none yarn react-start\" \"wait-on http://localhost:3000 &amp;&amp; electron .\""</span></span><br></pre></td></tr></table></figure>
+<p>4.启动</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm start</span><br></pre></td></tr></table></figure>
+<p>看到如下界面，恭喜你，已经成功启动了：<br><img src="https://upload-images.jianshu.io/upload_images/13276697-5e10f19ddf1c9376.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt></p>
+<h1 id="与-Vue-结合"><a href="#与-Vue-结合" class="headerlink" title="与 Vue 结合"></a>与 Vue 结合</h1><p>使用 vue-cli 来创建 vue-electron 工程：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># Install vue-cli and scaffold boilerplate</span></span><br><span class="line">npm install -g vue-cli</span><br><span class="line">vue init simulatedgreg/electron-vue my-project</span><br><span class="line"></span><br><span class="line"><span class="comment"># Install dependencies and run your app</span></span><br><span class="line"><span class="built_in">cd</span> my-project</span><br><span class="line">npm install</span><br><span class="line">npm run dev</span><br></pre></td></tr></table></figure>
+<h1 id="主进程和渲染进程"><a href="#主进程和渲染进程" class="headerlink" title="主进程和渲染进程"></a>主进程和渲染进程</h1><h2 id="主进程"><a href="#主进程" class="headerlink" title="主进程"></a>主进程</h2><p>Electron 运行 package.json 的 main 脚本的进程被称为主进程。 在主进程中运行的脚本通过创建 web 页面来展示用户界面。<br>一个 Electron 应用总是有且只有一个主进程。<br>主进程还负责应用程序的生命周期（app 打开退出）和一些 app 事件的监听，同时负责系统底层 API 的调用</p>
+<h2 id="渲染进程"><a href="#渲染进程" class="headerlink" title="渲染进程"></a>渲染进程</h2><p>Electron 使用了 Chromium 来展示 web 页面，每个页面运行在自己的渲染进程中。<br>使用 BrowserWindow 类开启一个渲染进程并将这个实例运行在该进程中，当一个 BrowserWindow 实例被销毁后，相应的渲染进程也会被终止。<br>渲染进程可以有多个，每个渲染进程都是相互独立的，它们只关心自己所运行的 web 页面</p>
+<p><img src="https://upload-images.jianshu.io/upload_images/13276697-9c61cc139b1b1110.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt></p>
+<h1 id="进程间通信"><a href="#进程间通信" class="headerlink" title="进程间通信"></a>进程间通信</h1><h2 id="ipcMain-和-ipcRenderer"><a href="#ipcMain-和-ipcRenderer" class="headerlink" title="ipcMain 和 ipcRenderer"></a>ipcMain 和 ipcRenderer</h2><p>ipcMain 和 ipcRenderer 是两个好基友，通过这两个模块可以实现进程的通信。</p>
+<p>ipcMain<br>在主进程中使用，用来处理渲染进程（网页）发送的同步和异步的信息</p>
+<p>ipcRenderer<br>在渲染进程中使用，用来发送同步或异步的信息给主进程，也可以用来接收主进程的回复信息。</p>
+<p>以上两个模块的通信，可以理解成发布订阅模式/观察者模式。</p>
+<p>主进程</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 主进程主动向渲染进程发送消息</span></span><br><span class="line">win.webContents.send(<span class="string">"something1"</span>, <span class="string">"消息来自主进程"</span>); <span class="comment">// webContents</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> &#123; ipcMain &#125; = <span class="built_in">require</span>(<span class="string">"electron"</span>);</span><br><span class="line"><span class="comment">// 监听渲染程序发来的事件</span></span><br><span class="line">ipcMain.on(<span class="string">"something"</span>, (event, data) =&gt; &#123;</span><br><span class="line">  event.sender.send(<span class="string">"something1"</span>, <span class="string">"我是主进程返回的值"</span>);</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+<p>渲染进程</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> &#123; ipcRenderer &#125; = <span class="built_in">require</span>(<span class="string">"electron"</span>);</span><br><span class="line"><span class="comment">// 发送事件给主进程</span></span><br><span class="line">ipcRenderer.send(<span class="string">"something"</span>, <span class="string">"传输给主进程的值"</span>);</span><br><span class="line"></span><br><span class="line"><span class="comment">// 监听主进程发来的事件</span></span><br><span class="line">ipcRenderer.on(<span class="string">"something1"</span>, (event, data) =&gt; &#123;</span><br><span class="line">  <span class="built_in">console</span>.log(data); <span class="comment">// 我是主进程返回的值</span></span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+<h2 id="remote-模块"><a href="#remote-模块" class="headerlink" title="remote 模块"></a>remote 模块</h2><p>使用 remote 模块, 渲染进程可以调用主进程对象的方法, 而不必显式发送进程间消息。</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> &#123; dialog, getGlobal &#125; = <span class="built_in">require</span>(<span class="string">"electron"</span>).remote;</span><br><span class="line">dialog.showMessageBox(&#123;</span><br><span class="line">  type: <span class="string">"info"</span>,</span><br><span class="line">  message: <span class="string">"在渲染进程中直接使用主进程的模块"</span>,</span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line">getGlobal(<span class="string">"sharedObject"</span>); <span class="comment">// 获取全局共享变量</span></span><br></pre></td></tr></table></figure>
+<h1 id="打包"><a href="#打包" class="headerlink" title="打包"></a>打包</h1><p>目前，主流的打包工具有两个 electron-packager 和 electron-builder</p>
+<h2 id="electron-packager"><a href="#electron-packager" class="headerlink" title="electron-packager"></a>electron-packager</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">electron-packager &lt;sourcedir&gt; &lt;appname&gt; --platform=&lt;platform&gt; --arch=&lt;arch&gt; --out=out --icon=assets/app.ico --asar --overwrite --ignore=.git</span><br></pre></td></tr></table></figure>
+<ul>
+<li>sourcedir 项目入口 根据 package.json 的目录</li>
+<li>appname 包名</li>
+<li>platform 构建平台 包含 darwin, linux, mas, win32 all</li>
+<li>arch 构建架构 包含 ia32,x64,armv7l,arm64</li>
+<li>out 打包后的地址</li>
+<li>icon 打包图标</li>
+<li>asar 是否生成 app.asar, 不然就是自己的源码</li>
+<li>overwrite 覆盖上次打包</li>
+<li>ignore 不进行打包的文件</li>
+</ul>
+<h2 id="electron-builder"><a href="#electron-builder" class="headerlink" title="electron-builder"></a>electron-builder</h2><p>配置文件写在 package.json 中的 build 字段中</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">"build"</span>: &#123;</span><br><span class="line">    <span class="string">"appId"</span>: <span class="string">"com.example.app"</span>, <span class="comment">// 应用程序id</span></span><br><span class="line">    <span class="string">"productName"</span>: <span class="string">"测试"</span>, <span class="comment">// 应用名称</span></span><br><span class="line">    <span class="string">"directories"</span>: &#123;</span><br><span class="line">        <span class="string">"buildResources"</span>: <span class="string">"build"</span>, <span class="comment">// 构建资源路径默认为build</span></span><br><span class="line">        <span class="string">"output"</span>: <span class="string">"dist"</span> <span class="comment">// 输出目录 默认为dist</span></span><br><span class="line">    &#125;,</span><br><span class="line">    <span class="string">"mac"</span>: &#123;</span><br><span class="line">        <span class="string">"category"</span>: <span class="string">"public.app-category.developer-tools"</span>, <span class="comment">// 应用程序类别</span></span><br><span class="line">        <span class="string">"target"</span>: [<span class="string">"dmg"</span>, <span class="string">"zip"</span>],  <span class="comment">// 目标包类型</span></span><br><span class="line">        <span class="string">"icon"</span>: <span class="string">"build/icon.icns"</span> <span class="comment">// 图标的路径</span></span><br><span class="line">    &#125;,</span><br><span class="line">    <span class="string">"dmg"</span>: &#123;</span><br><span class="line">        <span class="string">"background"</span>: <span class="string">"build/background.tiff or build/background.png"</span>, <span class="comment">// 背景图像的路径</span></span><br><span class="line">        <span class="string">"title"</span>: <span class="string">"标题"</span>,</span><br><span class="line">        <span class="string">"icon"</span>: <span class="string">"build/icon.icns"</span> <span class="comment">// 图标路径</span></span><br><span class="line">    &#125;,</span><br><span class="line">    <span class="string">"win"</span>: &#123;</span><br><span class="line">        <span class="string">"target"</span>: [<span class="string">"nsis"</span>,<span class="string">"zip"</span>] <span class="comment">// 目标包类型</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>这里我们使用 electron-builder 打包</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm run build</span><br></pre></td></tr></table></figure>
+<p>构建完成后，项目目录中会出现一个 dist 目录（第一次打包时间会比较长）：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">.</span><br><span class="line">├── builder-effective-config.yaml</span><br><span class="line">├── electron5-react-demo-0.1.0-mac.zip</span><br><span class="line">├── electron5-react-demo-0.1.0.dmg</span><br><span class="line">├── electron5-react-demo-0.1.0.dmg.blockmap</span><br><span class="line">├── latest-mac.yml</span><br><span class="line">└── mac</span><br><span class="line">    └── electron5-react-demo.app</span><br></pre></td></tr></table></figure>
+<p>目录中的 dmg 就是 Mac 上面的安装程序</p>
+<h1 id="最后"><a href="#最后" class="headerlink" title="最后"></a>最后</h1><p>本文所有代码请戳 <a href="https://github.com/LiuLingyang/electron5-react-demo" target="_blank" rel="noopener">github</a> 了解更多</p>
+
+          
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/04/24/2020/一文读懂 css js 阻塞问题/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -2031,230 +2241,13 @@ const app = new Vue({
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/01/02/2017/浅谈 js 拖拽/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="LiuLingyang">
-      <meta itemprop="description" content>
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="知识即性感">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-            
-            
-              
-                
-                <a class="post-title-link" href="/2017/01/02/2017/浅谈 js 拖拽/" itemprop="url">
-                  浅谈 js 拖拽
-                </a>
-              
-            
-          </h1>
-        
-
-        
-        <div class="post-author"><i class="fa fa-user-o"></i>&nbsp;&nbsp;LiuLingyang</div>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-01-02T00:00:00+08:00">
-                2017-01-02
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category">
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/其他/" itemprop="url" rel="index">
-                    <span itemprop="name">其他</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-            <!--noindex-->
-              <span class="post-comments-count">
-                <span class="post-meta-divider">|</span>
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-comment-o"></i>
-                </span>
-                <a href="/2017/01/02/2017/浅谈 js 拖拽/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count hc-comment-count" data-xid="2017/01/02/2017/浅谈 js 拖拽/" itemprop="commentsCount"></span>
-                </a>
-              </span>
-              <!--/noindex-->
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>本文依据半年前本人的分享《浅谈js拖拽》撰写，算是一篇迟到的文章。</p>
-<h2 id="基本思路"><a href="#基本思路" class="headerlink" title="基本思路"></a>基本思路</h2><p>虽然现在关于拖拽的组件库到处都是，HTML5也把拖放纳入了标准。但考虑到兼容问题，我们还是从最古老的方式开始讲起。</p>
-<p>onmousedown：模拟开始拖拽事件。鼠标按键按下即发生onmousedown事件。获取鼠标位置，获取被拖拽元素的位置，记录两者之间的纵横坐标的差值。对document元素绑定onmousemove,onmouseup事件。 </p>
-<p>为什么是对document绑定而不是对被拖动的元素绑定呢？原来是如果对被拖动元素绑定的话当鼠标拖动过快时，会导致鼠标与被拖动元素的脱离。 </p>
-<p>onmousemove：模拟拖拽中事件。鼠标拖动即发生onmousemove事件。将被拖拽元素的position改成绝对位置，这个可以通过left和top改变该元素的位置，从而使得该元素随着鼠标的拖拽而移动。获取鼠标位置，将鼠标x坐标（e.clientX）减去第2步储存的横坐标差作为被拖动元素的left值，将鼠标y坐标（e.clientY）减去第2步储存的纵坐标差作为被拖动元素的top值。实现元素跟随鼠标拖动的效果。 </p>
-<p>onmouseup：模拟拖拽结束事件。鼠标按键弹起即发生onmouseup事件。可以回收onmousemove和onmousedown中的事件和变量，一次拖拽至此结束。</p>
-<p>（nej也提供了拖拽的一个简单案例，位于util/dragger/下，代码就不贴出来了，有兴趣的童鞋可以自行查阅，毕竟看文字实在是过于枯燥了。）</p>
-<h2 id="HTML5拖放"><a href="#HTML5拖放" class="headerlink" title="HTML5拖放"></a>HTML5拖放</h2><p>有古老的方式自然有潮流的方式，如果你无需考虑兼容性问题的话，笔者强烈建议你使用HTML5提供的拖放API。如果你还未曾了解，提供你一个简单的HTML5拖放实例<a href="http://www.w3school.com.cn/tiy/t.asp?f=html5_draganddrop" target="_blank" rel="noopener">http://www.w3school.com.cn/tiy/t.asp?f=html5_draganddrop</a>。</p>
-<p>让我们一起来看看HTML5拖放相关的一些知识点。</p>
-<p><strong>7个事件：</strong></p>
-<p>dragstart：当用户开始拖动对象时触发。</p>
-<p>dragenter： 当鼠标第一次经过目标元素，且有拖动发生时触发。此事件的监听者应指明在这个位置上是否允许drop，或者监听者不执行任何操作，那么drop默认是不允许的。</p>
-<p>dragover：当鼠标经过一个元素时，且有拖动发生时触发 。</p>
-<p>dragleave：当鼠标离开一个元素，且有拖动在发生时触发。</p>
-<p>drag： 当对象被拖动，每次移动鼠标时触发。</p>
-<p>drop：在drag操作的最后发生drop时，在元素上触发此事件。监听者应该负责检索拖动的数据，并插入drop的位置。</p>
-<p>dragend： 在拖动对象时放开鼠标按键时触发。</p>
-<p><strong>draggable属性：</strong></p>
-<p>如果网页元素的draggable元素为true，这个元素就是可以拖动的。</p>
-<pre><div draggable="true">Draggable Div</div></pre>
-
-<p><strong>dataTransfer对象：</strong></p>
-<p>拖动过程中，回调函数接受的事件参数，有一个dataTransfer属性。它指向一个对象，包含了与拖动相关的各种信息。</p>
-<p>dataTransfer对象的属性:</p>
-<ul>
-<li>dropEffect：拖放的操作类型，决定了浏览器如何显示鼠标形状，可能的值为copy、move、link和none。</li>
-<li>effectAllowed：指定所允许的操作，可能的值为copy、move、link、copyLink、copyMove、linkMove、all、none和uninitialized（默认值，等同于all，即允许一切操作）。</li>
-<li>files：包含一个FileList对象，表示拖放所涉及的文件，主要用于处理从文件系统拖入浏览器的文件。</li>
-<li>types：储存在DataTransfer对象的数据的类型。</li>
-<li>dataTransfer对象的方法：</li>
-<li>setData(format, data)：在dataTransfer对象上储存数据。第一个参数format用来指定储存的数据类型，比如text、url、text/html等。</li>
-<li>getData(format)：从dataTransfer对象取出数据。</li>
-<li>clearData(format)：清除dataTransfer对象所储存的数据。如果指定了format参数，则只清除该格式的数据，否则清除所有数据。</li>
-<li>setDragImage(imgElement, x, y)：指定拖动过程中显示的图像。默认情况下，许多浏览器显示一个被拖动元素的半透明版本。参数imgElement必须是一个图像元素，而不是指向图像的路径，参数x和y表示图像相对于鼠标的位置。</li>
-</ul>
-<p>dataTransfer对象，允许在其上存储数据，这使得在被拖动元素与目标元素之间传送信息成为可能。</p>
-<p><strong>e.preventDefault():</strong></p>
-<p>ondragover有一个默认行为，那就是当ondragover触发时，ondrop会失效！</p>
-<p>如何阻止？</p>
-<pre data-type="javascript">ondragover = function(e){</pre>
-
-<pre data-type="javascript">    e.preventDefault();</pre>
-
-<pre data-type="javascript">    ....</pre>
-
-<pre data-type="javascript">}</pre>
-
-<p>附一张整理好的图片供大家理解：</p>
-<p><img src="http://upload-images.jianshu.io/upload_images/13276697-e3f1caa17193f21c?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="image"></p>
-<h2 id="案例"><a href="#案例" class="headerlink" title="案例"></a>案例</h2><p>扯了这么多，最后再举个栗子来结束本文。先上图片…</p>
-<p><img src="http://upload-images.jianshu.io/upload_images/13276697-f9a4a35e17da8815?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="image"></p>
-<p>这是笔者在网易有数项目中的一个需求，实现文件拖拽上传。</p>
-<p>实现步骤：</p>
-<p>  1.监听事件</p>
-<p> <img src="http://upload-images.jianshu.io/upload_images/13276697-34c74f5bf800a8f1?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="image"></p>
-<p>  其中dragenter和dragleave只是处理了外框高亮的效果，如上面图片所示。</p>
-<p>  需要注意的是一定要将dragover的默认事件取消掉，不然无法触发drop事件。可以用preventDefault()，也可以用nej的_v._$stop(_event)。如需拖拽页面里的元素，需要给其添加属性draggable=”true”。这些上文已经有所提及。</p>
-<p>  2.处理drop事件</p>
-<p>  在drop事件回调函数中通过_event.dataTransfer.files获取拖拽文件列表。dataTransfer对象真是个好东西。</p>
-<p>  3.发送文件数据</p>
-<p>  使用FormData模拟表单数据AJAX提交文件流。</p>
-<p> <img src="http://upload-images.jianshu.io/upload_images/13276697-f1a888eccb80074b?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="image"></p>
-<p>  至此，HTML5的文件拖拽上传就实现了，是不是很easy？</p>
-
-          
-        
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
   </section>
 
   
+  <nav class="pagination">
+    <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><a class="extend next" rel="next" href="/page/2/"><i class="fa fa-angle-right"></i></a>
+  </nav>
+
 
 
           </div>
@@ -2295,7 +2288,7 @@ const app = new Vue({
           
             <div class="site-state-item site-state-posts">
               <a href="/archives">
-                <span class="site-state-item-count">10</span>
+                <span class="site-state-item-count">11</span>
                 <span class="site-state-item-name">日志</span>
               </a>
             </div>
@@ -2306,7 +2299,7 @@ const app = new Vue({
             
             <div class="site-state-item site-state-categories">
               
-                <span class="site-state-item-count">6</span>
+                <span class="site-state-item-count">7</span>
                 <span class="site-state-item-name">分类</span>
               
             </div>

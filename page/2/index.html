@@ -87,22 +87,13 @@
 
 
 
-<meta name="description" content="前言本文依据半年前本人的分享《浅谈js拖拽》撰写，算是一篇迟到的文章。 基本思路虽然现在关于拖拽的组件库到处都是，HTML5也把拖放纳入了标准。但考虑到兼容问题，我们还是从最古老的方式开始讲起。 onmousedown：模拟开始拖拽事件。鼠标按键按下即发生onmousedown事件。获取鼠标位置，获取被拖拽元素的位置，记录两者之间的纵横坐标的差值。对document元素绑定onmousemove,">
-<meta property="og:type" content="article">
-<meta property="og:title" content="浅谈 js 拖拽">
-<meta property="og:url" content="http://yoursite.com/2017/01/02/2017/浅谈 js 拖拽/index.html">
+<meta property="og:type" content="website">
+<meta property="og:title" content="知识即性感">
+<meta property="og:url" content="http://yoursite.com/page/2/index.html">
 <meta property="og:site_name" content="知识即性感">
-<meta property="og:description" content="前言本文依据半年前本人的分享《浅谈js拖拽》撰写，算是一篇迟到的文章。 基本思路虽然现在关于拖拽的组件库到处都是，HTML5也把拖放纳入了标准。但考虑到兼容问题，我们还是从最古老的方式开始讲起。 onmousedown：模拟开始拖拽事件。鼠标按键按下即发生onmousedown事件。获取鼠标位置，获取被拖拽元素的位置，记录两者之间的纵横坐标的差值。对document元素绑定onmousemove,">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/13276697-e3f1caa17193f21c?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
-<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/13276697-f9a4a35e17da8815?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
-<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/13276697-34c74f5bf800a8f1?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
-<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/13276697-f1a888eccb80074b?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
-<meta property="og:updated_time" content="2019-05-23T08:02:12.218Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="浅谈 js 拖拽">
-<meta name="twitter:description" content="前言本文依据半年前本人的分享《浅谈js拖拽》撰写，算是一篇迟到的文章。 基本思路虽然现在关于拖拽的组件库到处都是，HTML5也把拖放纳入了标准。但考虑到兼容问题，我们还是从最古老的方式开始讲起。 onmousedown：模拟开始拖拽事件。鼠标按键按下即发生onmousedown事件。获取鼠标位置，获取被拖拽元素的位置，记录两者之间的纵横坐标的差值。对document元素绑定onmousemove,">
-<meta name="twitter:image" content="http://upload-images.jianshu.io/upload_images/13276697-e3f1caa17193f21c?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta name="twitter:title" content="知识即性感">
 
 
 
@@ -130,13 +121,13 @@
 
 
 
-  <link rel="canonical" href="http://yoursite.com/2017/01/02/2017/浅谈 js 拖拽/">
+  <link rel="canonical" href="http://yoursite.com/page/2/">
 
 
 
 
 
-  <title> 浅谈 js 拖拽 | 知识即性感 </title>
+  <title> 知识即性感 </title>
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
@@ -161,7 +152,9 @@
     
   
 
-  <div class="container sidebar-position-left page-post-detail ">
+  <div class="container sidebar-position-left 
+   page-home 
+ ">
     <div class="headband"></div>
 
     <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
@@ -234,9 +227,9 @@
         <div class="content-wrap">
           <div id="content" class="content">
             
-
-  <div id="posts" class="posts-expand">
+  <section id="posts" class="posts-expand">
     
+      
 
   
 
@@ -266,7 +259,10 @@
             
             
               
-                浅谈 js 拖拽
+                
+                <a class="post-title-link" href="/2017/01/02/2017/浅谈 js 拖拽/" itemprop="url">
+                  浅谈 js 拖拽
+                </a>
               
             
           </h1>
@@ -355,7 +351,9 @@
       
 
       
-        <h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>本文依据半年前本人的分享《浅谈js拖拽》撰写，算是一篇迟到的文章。</p>
+        
+          
+            <h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>本文依据半年前本人的分享《浅谈js拖拽》撰写，算是一篇迟到的文章。</p>
 <h2 id="基本思路"><a href="#基本思路" class="headerlink" title="基本思路"></a>基本思路</h2><p>虽然现在关于拖拽的组件库到处都是，HTML5也把拖放纳入了标准。但考虑到兼容问题，我们还是从最古老的方式开始讲起。</p>
 <p>onmousedown：模拟开始拖拽事件。鼠标按键按下即发生onmousedown事件。获取鼠标位置，获取被拖拽元素的位置，记录两者之间的纵横坐标的差值。对document元素绑定onmousemove,onmouseup事件。 </p>
 <p>为什么是对document绑定而不是对被拖动的元素绑定呢？原来是如果对被拖动元素绑定的话当鼠标拖动过快时，会导致鼠标与被拖动元素的脱离。 </p>
@@ -419,27 +417,20 @@
 <p> <img src="http://upload-images.jianshu.io/upload_images/13276697-f1a888eccb80074b?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="image"></p>
 <p>  至此，HTML5的文件拖拽上传就实现了，是不是很easy？</p>
 
+          
+        
       
     </div>
 
     <div>
       
-        
-
-      
     </div>
 
     <div>
       
-        
-
-      
     </div>
 
     <div>
-      
-        
-
       
     </div>
 
@@ -447,38 +438,25 @@
       
 
       
-        
+
       
 
       
-        <div class="post-nav">
-          <div class="post-nav-next post-nav-item">
-            
-          </div>
-
-          <span class="post-nav-divider"></span>
-
-          <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2017/06/16/2017/用户信息及设备信息采集器/" rel="prev" title="用户信息及设备信息采集器">
-                用户信息及设备信息采集器 <i class="fa fa-chevron-right"></i>
-              </a>
-            
-          </div>
-        </div>
       
-
-      
+        <div class="post-eof"></div>
       
     </footer>
   </article>
 
 
+    
+  </section>
 
-    <div class="post-spread">
-      
-    </div>
-  </div>
+  
+  <nav class="pagination">
+    <a class="extend prev" rel="prev" href="/"><i class="fa fa-angle-left"></i></a><a class="page-number" href="/">1</a><span class="page-number current">2</span>
+  </nav>
+
 
 
           </div>
@@ -486,12 +464,6 @@
 
 
           
-  <div class="comments" id="comments">
-    
-      <div id="hypercomments_widget"></div>
-    
-  </div>
-
 
         </div>
         
@@ -511,17 +483,8 @@
       
 
       
-        <ul class="sidebar-nav motion-element">
-          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
-            文章目录
-          </li>
-          <li class="sidebar-nav-overview" data-target="site-overview">
-            站点概览
-          </li>
-        </ul>
-      
 
-      <section class="site-overview sidebar-panel">
+      <section class="site-overview sidebar-panel sidebar-panel-active">
         <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
           <img class="site-author-image" itemprop="image" src="/images/avatar.gif" alt="LiuLingyang">
           <p class="site-author-name" itemprop="name">LiuLingyang</p>
@@ -572,22 +535,6 @@
 
       </section>
 
-      
-      <!--noindex-->
-        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
-          <div class="post-toc">
-
-            
-              
-            
-
-            
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#前言"><span class="nav-number">1.</span> <span class="nav-text">前言</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#基本思路"><span class="nav-number">2.</span> <span class="nav-text">基本思路</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#HTML5拖放"><span class="nav-number">3.</span> <span class="nav-text">HTML5拖放</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#案例"><span class="nav-number">4.</span> <span class="nav-text">案例</span></a></li></ol></div>
-            
-
-          </div>
-        </section>
-      <!--/noindex-->
       
 
       
@@ -702,10 +649,6 @@
 
 
   
-  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.0"></script>
-<script type="text/javascript" src="/js/src/post-details.js?v=5.1.0"></script>
-
-
 
   
 
@@ -729,8 +672,6 @@
 
 		_hcwp.push({widget:"Bloggerstream", widget_id: 95658, selector:".hc-comment-count", label: "{\%COUNT%\}" });
 
-		
-		_hcwp.push({widget:"Stream", widget_id: 95658, xid: "2017/01/02/2017/浅谈 js 拖拽/"});
 		
 
 		(function() {
